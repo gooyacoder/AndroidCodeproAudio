@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -31,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private short preset_index;
     private Equalizer equalizer;
     private SeekBar volumeSeekbar;
-    private Button rec_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

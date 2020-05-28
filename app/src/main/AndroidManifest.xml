@@ -3,8 +3,7 @@
     package="com.ahm.codepro_audio_streaming_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
 
     <application
         android:allowBackup="true"
@@ -13,16 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectActivity" />
-        <activity android:name=".AddActivity" />
-        <activity android:name=".EqualizerActivityEdited" />
+        <activity android:name=".SelectActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".AddActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".EqualizerActivityEdited" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
