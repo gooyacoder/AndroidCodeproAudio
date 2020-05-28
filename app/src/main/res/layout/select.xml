@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/lbl_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select sation:"
+        android:textSize="17sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="25dp"/>
+
+
+    <ListView
+        android:id="@+id/stations_listview"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:choiceMode="singleChoice"
+        android:layout_marginTop="25dp"
+        >
+    </ListView>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        >
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:onClick="btn_select_clicked"
+            android:text="Select"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"/>
+
+
+        <Switch
+            android:id="@+id/edit_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            />
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:enabled="false"
+            android:onClick="btn_delete_clicked"
+            android:text="Delete"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/clear_database"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:enabled="false"
+            android:text="Clear"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:onClick="btn_clear_clicked"/>
+    </LinearLayout>
+
+</LinearLayout>

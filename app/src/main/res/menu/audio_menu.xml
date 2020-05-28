@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    >
+    <item
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:orderInCategory="100"
+        android:title="Option Menu"
+        app:showAsAction="always">
+        <menu>
+            <item android:id="@+id/select"
+                android:title="@string/select_station"
+                />
+            <item android:id="@+id/add"
+                android:title="@string/add_station"
+                />
+            <item android:id="@+id/eq"
+                android:title="@string/equalizer"
+                />
+            <item android:id="@+id/remove"
+                android:title="@string/exit"
+                />
+        </menu>
+    </item>
+</menu>

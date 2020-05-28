@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="5dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="17sp"
+        android:text="Select Your Favourite Preset for the Equalizer"
+        android:layout_marginBottom="5dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radiogroup"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radioButton1"
+                android:layout_width="@dimen/radio_btn_width"
+                android:layout_height="wrap_content"
+                android:text="RadioButton"
+                android:onClick="r1_clicked"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="@dimen/radio_btn_width"
+                android:layout_height="wrap_content"
+                android:onClick="r2_clicked"
+                android:text="RadioButton"
+                android:textColor="@color/colorPrimary"/>
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="@dimen/radio_btn_width"
+                android:layout_height="wrap_content"
+                android:text="RadioButton"
+                android:onClick="r3_clicked"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="@dimen/radio_btn_width"
+                android:layout_height="wrap_content"
+                android:text="RadioButton"
+                android:onClick="r4_clicked"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <RadioButton
+                android:id="@+id/radioButton5"
+                android:layout_width="@dimen/radio_btn_width"
+                android:layout_height="wrap_content"
+                android:text="RadioButton"
+                android:onClick="r5_clicked"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <RadioButton
+                android:id="@+id/radioButton6"
+                android:layout_width="@dimen/radio_btn_width"
+                android:layout_height="wrap_content"
+                android:text="RadioButton"
+                android:onClick="r6_clicked"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <RadioButton
+                android:id="@+id/radioButton7"
+                android:layout_width="@dimen/radio_btn_width"
+                android:layout_height="wrap_content"
+                android:text="RadioButton"
+                android:onClick="r7_clicked"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <RadioButton
+                android:id="@+id/radioButton8"
+                android:layout_width="@dimen/radio_btn_width"
+                android:layout_height="wrap_content"
+                android:text="RadioButton"
+                android:onClick="r8_clicked"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <RadioButton
+                android:id="@+id/radioButton9"
+                android:layout_width="@dimen/radio_btn_width"
+                android:layout_height="wrap_content"
+                android:text="RadioButton"
+                android:onClick="r9_clicked"
+                android:textColor="@color/colorPrimary"
+                />
+
+            <RadioButton
+                android:id="@+id/radioButton10"
+                android:layout_width="@dimen/radio_btn_width"
+                android:layout_height="wrap_content"
+                android:text="RadioButton"
+                android:onClick="r10_clicked"
+                android:textColor="@color/colorPrimary"
+                />
+        </RadioGroup>
+
+
+        <Button
+            android:id="@+id/select_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/radiogroup"
+            android:layout_alignEnd="@+id/radiogroup"
+            android:layout_alignRight="@+id/radiogroup"
+            android:layout_gravity="right"
+            android:layout_marginTop="262dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="1dp"
+            android:onClick="btn_eq_select_clicked"
+            android:text="Select"
+            android:textAllCaps="false"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"/>
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

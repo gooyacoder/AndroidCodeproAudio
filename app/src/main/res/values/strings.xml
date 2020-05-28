@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Codepro Audio</string>
+    <string name="select_station">Select Station</string>
+    <string name="add_station">Add Station</string>
+    <string name="remove_station">Remove Station</string>
+    <string name="exit">Exit</string>
+    <string name="equalizer">Equalizer</string>
+</resources>
