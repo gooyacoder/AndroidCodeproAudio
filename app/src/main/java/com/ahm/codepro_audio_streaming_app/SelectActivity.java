@@ -57,7 +57,7 @@ public class SelectActivity extends AppCompatActivity {
                         .getColor(R.color.List_fg));
                 textView.setBackgroundColor(getApplicationContext().getResources()
                         .getColor(R.color.List_bg));
-                textView.setTextSize(12);
+                textView.setTextSize(17);
 
                 return textView;
             }

@@ -46,6 +46,23 @@ public class Station_Database_Handler extends SQLiteOpenHelper {
         return list;
     }
 
+    public ArrayList<String> loadStationsNames(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from stations_table;",
+                null);
+        ArrayList<String> list = new ArrayList<String>();
+
+        if(cursor.moveToFirst()){
+            while(!cursor.isAfterLast()){
+                String station_url = cursor.getString(2);
+                list.add(station_url);
+                cursor.moveToNext();
+            }
+        }
+        db.close();
+        return list;
+    }
+
     public ArrayList<String> loadSelectionList(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from stations_table;",

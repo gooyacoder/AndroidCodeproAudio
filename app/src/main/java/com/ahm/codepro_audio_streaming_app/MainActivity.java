@@ -26,10 +26,15 @@ public class MainActivity extends AppCompatActivity {
     private boolean playPause;
     private MediaPlayer mediaPlayer;
     private ArrayList<String> stations;
+    private ArrayList<String> stationsNames;
     private int index;
     private short preset_index;
     private Equalizer equalizer;
     private SeekBar volumeSeekbar;
+    private TextView stationView;
+    private TextView equalizerView;
+    private String[] equalizer_presets = {"Flat", "Pop", "Rock", "Classical",
+            "Jazz", "Headphone", "News", "Dance", "Full Bass", "Full Treble"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         UpdateStationsList();
         btn = findViewById(R.id.audioStreamBtn);
+        stationView = findViewById(R.id.station);
+        equalizerView = findViewById(R.id.equalizer);
         mediaPlayer = new MediaPlayer();
         preset_index = 0;
         equalizer = new Equalizer(1, mediaPlayer.getAudioSessionId());
@@ -66,15 +73,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                     if(stations.size() > 0){
-                        if(mediaPlayer == null){
+                            if (!playPause) {
+
                             mediaPlayer = new MediaPlayer();
                             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                             playPause = false;
                             equalizer = new Equalizer(1, mediaPlayer.getAudioSessionId());
                             equalizer.setEnabled(true);
-                        }
 
-                        if (!playPause) {
                             btn.setText("Stop");
                             SharedPreferences prefs =
                                     PreferenceManager
@@ -90,10 +96,10 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
                                 mediaPlayer.setDataSource(stations.get(index));
-
                                 mediaPlayer.prepareAsync();
                             }catch(IOException e){
-
+                                Toast.makeText(getApplicationContext(),e.getMessage(),
+                                        Toast.LENGTH_LONG ).show();
                             }
 
                             playPause = true;
@@ -179,10 +185,18 @@ public class MainActivity extends AppCompatActivity {
         count_view.setText("There are " + stations.size() + " stations to choose from.");
     }
 
+    private void UpdateStationsNamesList(){
+        Station_Database_Handler data_handler = new Station_Database_Handler(
+                this, null, null, 1);
+        stationsNames = data_handler.loadStationsNames();
+
+    }
+
     @Override
     protected void onResume(){
         super.onResume();
         UpdateStationsList();
+        UpdateStationsNamesList();
         if(mediaPlayer == null){
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -191,9 +205,11 @@ public class MainActivity extends AppCompatActivity {
             equalizer.setEnabled(true);
         }
         SharedPreferences prefs =
-                PreferenceManager
-                        .getDefaultSharedPreferences(getApplicationContext());
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         preset_index = (short)prefs.getInt("eq_index", 0);
+        equalizerView.setText(equalizer_presets[preset_index]);
+        index = prefs.getInt("index", 0);
+        stationView.setText(stationsNames.get(index));
         UpdateEqualizer(preset_index);
     }
 
