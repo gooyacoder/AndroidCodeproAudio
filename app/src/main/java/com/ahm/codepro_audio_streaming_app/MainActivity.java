@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         UpdateStationsList();
         btn = findViewById(R.id.audioStreamBtn);
         isPlaying = false;
+        equalizer = new Equalizer(1, 1);
         stationView = findViewById(R.id.station);
         equalizerView = findViewById(R.id.equalizer);
         volumeSeekbar = findViewById(R.id.volume_seekbar);
@@ -207,7 +208,10 @@ public class MainActivity extends AppCompatActivity {
         if(stationsNames.size() > 0){
             stationView.setText(stationsNames.get(index));
         }
-        //UpdateEqualizer(preset_index);
+        if(mediaPlayer != null){
+            UpdateEqualizer(preset_index);
+        }
+
     }
 
     private void UpdateEqualizer(int setting_index) {
