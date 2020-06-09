@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private Button btn;
-    private boolean playPause;
+    private boolean isPlaying;
     private MediaPlayer mediaPlayer;
     private ArrayList<String> stations;
     private ArrayList<String> stationsNames;
@@ -42,14 +42,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         UpdateStationsList();
         btn = findViewById(R.id.audioStreamBtn);
+        isPlaying = false;
         stationView = findViewById(R.id.station);
         equalizerView = findViewById(R.id.equalizer);
-        mediaPlayer = new MediaPlayer();
-        preset_index = 0;
-        equalizer = new Equalizer(1, mediaPlayer.getAudioSessionId());
-        equalizer.setEnabled(true);
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mediaPlayer.setVolume(0.5f, 0.5f);
         volumeSeekbar = findViewById(R.id.volume_seekbar);
         volumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -73,14 +68,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                     if(stations.size() > 0){
-                            if (!playPause) {
-
+                            if (!isPlaying) {
                             mediaPlayer = new MediaPlayer();
+                            mediaPlayer.setVolume(0.5f, 0.5f);
+                            volumeSeekbar.setProgress(50);
                             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                            playPause = false;
                             equalizer = new Equalizer(1, mediaPlayer.getAudioSessionId());
                             equalizer.setEnabled(true);
-
                             btn.setText("Stop");
                             SharedPreferences prefs =
                                     PreferenceManager
@@ -88,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                             index = prefs.getInt("index", 0);
                             preset_index = (short)prefs.getInt("eq_index", 0);
                             try{
+
                                 UpdateEqualizer(preset_index);
                                 mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                                     @Override
@@ -102,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.LENGTH_LONG ).show();
                             }
 
-                            playPause = true;
+                            isPlaying = true;
 
                         } else {
                             btn.setText("Play");
@@ -115,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                                 equalizer = null;
                             }
 
-                            playPause = false;
+                            isPlaying = false;
                         }
                     }
                     else{
@@ -197,20 +192,22 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         UpdateStationsList();
         UpdateStationsNamesList();
-        if(mediaPlayer == null){
+/*        if(mediaPlayer == null){
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            playPause = false;
+            isPlaying = false;
             equalizer = new Equalizer(1, mediaPlayer.getAudioSessionId());
             equalizer.setEnabled(true);
-        }
+        }*/
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         preset_index = (short)prefs.getInt("eq_index", 0);
         equalizerView.setText(equalizer_presets[preset_index]);
         index = prefs.getInt("index", 0);
-        stationView.setText(stationsNames.get(index));
-        UpdateEqualizer(preset_index);
+        if(stationsNames.size() > 0){
+            stationView.setText(stationsNames.get(index));
+        }
+        //UpdateEqualizer(preset_index);
     }
 
     private void UpdateEqualizer(int setting_index) {
