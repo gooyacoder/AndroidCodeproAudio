@@ -2,11 +2,13 @@ package com.ahm.codepro_audio_streaming_app;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -120,6 +122,16 @@ public class MainActivity extends AppCompatActivity {
                 }
 
         });
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        if(height == 480 && width == 320){
+            btn.setPadding(0,0,0,0);
+            btn.setTextSize(15);
+        }
 
     }
 
