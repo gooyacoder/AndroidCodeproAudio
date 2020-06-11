@@ -1,5 +1,6 @@
 package com.ahm.codepro_audio_streaming_app;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -13,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView equalizerView;
     private String[] equalizer_presets = {"Flat", "Pop", "Rock", "Classical",
             "Jazz", "Headphone", "News", "Dance", "Full Bass", "Full Treble"};
+    private LinearLayout seekbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +137,11 @@ public class MainActivity extends AppCompatActivity {
         if(height == 480 && width == 320){
             btn.setPadding(0,0,0,0);
             btn.setTextSize(15);
+            seekbarLayout = findViewById(R.id.seekbarLayout);
+            ViewGroup.LayoutParams params = seekbarLayout.getLayoutParams();
+            params.width = 300;
+            seekbarLayout.setLayoutParams(params);
+
         }
 
     }
