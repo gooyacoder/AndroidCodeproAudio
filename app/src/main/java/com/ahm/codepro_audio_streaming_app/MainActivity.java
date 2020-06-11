@@ -52,8 +52,10 @@ public class MainActivity extends AppCompatActivity {
         volumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                mediaPlayer.setVolume((float)i / 100.0f,
-                        (float)i / 100.0f);
+                if(mediaPlayer != null){
+                    mediaPlayer.setVolume((float)i / 100.0f,
+                            (float)i / 100.0f);
+                }
             }
 
             @Override
