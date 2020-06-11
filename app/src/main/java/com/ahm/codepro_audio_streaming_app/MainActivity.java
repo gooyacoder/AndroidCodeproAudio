@@ -134,14 +134,19 @@ public class MainActivity extends AppCompatActivity {
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
 
+        seekbarLayout = findViewById(R.id.seekbarLayout);
+        ViewGroup.LayoutParams params = seekbarLayout.getLayoutParams();
+
         if(height == 480 && width == 320){
             btn.setPadding(0,0,0,0);
             btn.setTextSize(15);
-            seekbarLayout = findViewById(R.id.seekbarLayout);
-            ViewGroup.LayoutParams params = seekbarLayout.getLayoutParams();
             params.width = 300;
             seekbarLayout.setLayoutParams(params);
-
+        }
+        if(height == 1920 && width == 1080){
+            params.width = 350 * (int)((float)volumeSeekbar.getContext()
+                    .getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+            seekbarLayout.setLayoutParams(params);
         }
 
     }
