@@ -137,11 +137,15 @@ public class MainActivity extends AppCompatActivity {
         seekbarLayout = findViewById(R.id.seekbarLayout);
         ViewGroup.LayoutParams params = seekbarLayout.getLayoutParams();
 
+        LinearLayout imgLayout = findViewById(R.id.image_layout);
+
         if(height == 480 && width == 320){
             btn.setPadding(0,0,0,0);
             btn.setTextSize(15);
             params.width = 300;
             seekbarLayout.setLayoutParams(params);
+            imgLayout.removeView(findViewById(R.id.logo1));
+            imgLayout.removeView(findViewById(R.id.logo4));
         }else{
             params.width = 350 * (int)((float)volumeSeekbar.getContext()
                     .getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
