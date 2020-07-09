@@ -1,11 +1,10 @@
 package com.ahm.codepro_audio_streaming_app;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.audiofx.Equalizer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.media.audiofx.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -209,7 +207,16 @@ public class MainActivity extends AppCompatActivity {
                 this, null, null, 1);
         stations = data_handler.loadStations();
         TextView count_view = findViewById(R.id.count_view);
+        if(stations.size() == 0){
+            AddStations();
+        }
         count_view.setText("There are " + stations.size() + " stations to choose from.");
+    }
+
+    private void AddStations() {
+        Station_Database_Handler data_handler = new Station_Database_Handler(
+                this, null, null, 1);
+        data_handler.addInitials();
     }
 
     private void UpdateStationsNamesList(){

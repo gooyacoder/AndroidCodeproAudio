@@ -103,6 +103,17 @@ public class Station_Database_Handler extends SQLiteOpenHelper {
                 " station_current_song = \"" + item + "\";");
         db.close();
     }
+
+    public void addInitials() {
+        addStation("http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk", "BBC");
+        addStation("http://fm939.wnyc.org/wnycfm", "WNYC 93.9 FM");
+        addStation("http://stream.srg-ssr.ch/m/rsp/mp3_128", "Radio Swiss Pop");
+        addStation("http://stream.srg-ssr.ch/m/rsc_de/mp3_128", "Radio Swiss Classic");
+        addStation("http://109.74.196.76:8060/stream", "Davide of MIMIC");
+        addStation("http://uk7.internet-radio.com:8226/stream", "Box UK Radio");
+        addStation("http://212.71.250.12:8040/stream", "Merge 104.8");
+        addStation("http://uk6.internet-radio.com:8124/stream", "Party Vibe Music");
+    }
 }
 
 
