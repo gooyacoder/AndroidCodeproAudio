@@ -142,8 +142,7 @@ public class MainActivity extends AppCompatActivity {
             btn.setTextSize(15);
             params.width = 300;
             seekbarLayout.setLayoutParams(params);
-        }
-        if(height == 1920 && width == 1080){
+        }else{
             params.width = 350 * (int)((float)volumeSeekbar.getContext()
                     .getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
             seekbarLayout.setLayoutParams(params);
