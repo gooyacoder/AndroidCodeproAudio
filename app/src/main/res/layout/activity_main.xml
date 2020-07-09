@@ -42,14 +42,14 @@
 
         <ImageView
             android:id="@+id/logo1"
-            android:layout_width="50dp"
+            android:layout_width="40dp"
             android:layout_height="100dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/radio"
             android:alpha="0.2" />
         <ImageView
             android:id="@+id/logo2"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:layout_height="80dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/radio"
@@ -63,14 +63,14 @@
             android:alpha="1"/>
         <ImageView
             android:id="@+id/logo3"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:layout_height="80dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/radio"
             android:alpha="0.5"/>
         <ImageView
             android:id="@+id/logo4"
-            android:layout_width="50dp"
+            android:layout_width="40dp"
             android:layout_height="100dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/radio"
