@@ -7,29 +7,31 @@
     <TextView
         android:id="@+id/lbl_select"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0px"
         android:text="Select sation:"
         android:textSize="17sp"
         android:textColor="@color/colorPrimary"
-        android:layout_marginTop="25dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
 
 
     <ListView
         android:id="@+id/stations_listview"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="0px"
         android:choiceMode="singleChoice"
-        android:layout_marginTop="25dp"
-        >
-    </ListView>
+        android:layout_weight="8"
+        android:layout_marginBottom="10dp" />
 
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0px"
         android:orientation="horizontal"
         android:background="@color/colorPrimary"
+        android:layout_weight="1"
         >
 
         <Button
