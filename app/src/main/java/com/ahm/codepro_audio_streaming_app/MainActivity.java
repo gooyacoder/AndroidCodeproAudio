@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -67,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
         volumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if(mediaPlayer != null){
-                    mediaPlayer.setVolume((float)i / 100.0f,
-                            (float)i / 100.0f);
+                if (mediaPlayer != null) {
+                    mediaPlayer.setVolume((float) i / 100.0f,
+                            (float) i / 100.0f);
                 }
             }
 
@@ -85,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
@@ -97,14 +96,14 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayout imgLayout = findViewById(R.id.image_layout);
 
-        if(height == 480 && width == 320){
-            btn.setPadding(0,0,0,0);
+        if (height == 480 && width == 320) {
+            btn.setPadding(0, 0, 0, 0);
             //btn.setTextSize(15);
             params.width = 300;
             seekbarLayout.setLayoutParams(params);
 
-        }else{
-            params.width = 350 * (int)((float)volumeSeekbar.getContext()
+        } else {
+            params.width = 350 * (int) ((float) volumeSeekbar.getContext()
                     .getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
             seekbarLayout.setLayoutParams(params);
         }
@@ -143,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
     }
-
 
 
     @Override
@@ -189,12 +187,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    private void UpdateStationsList(){
+    private void UpdateStationsList() {
         Station_Database_Handler data_handler = new Station_Database_Handler(
                 this, null, null, 1);
         stations = data_handler.loadStations();
         TextView count_view = findViewById(R.id.count_view);
-        if(stations.size() == 0){
+        if (stations.size() == 0) {
             AddStations();
         }
         count_view.setText("There are " + stations.size() + " stations to choose from.");
@@ -206,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         data_handler.addInitials();
     }
 
-    private void UpdateStationsNamesList(){
+    private void UpdateStationsNamesList() {
         Station_Database_Handler data_handler = new Station_Database_Handler(
                 this, null, null, 1);
         stationsNames = data_handler.loadStationsNames();
@@ -214,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         UpdateStationsList();
         UpdateStationsNamesList();
@@ -227,23 +225,23 @@ public class MainActivity extends AppCompatActivity {
         }*/
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        preset_index = (short)prefs.getInt("eq_index", 0);
+        preset_index = (short) prefs.getInt("eq_index", 0);
         equalizerView.setText(equalizer_presets[preset_index]);
         index = prefs.getInt("index", 0);
-        if(stationsNames.size() > 0){
+        if (stationsNames.size() > 0) {
             stationView.setText(stationsNames.get(index));
         }
-        if(mediaPlayer != null){
+        if (mediaPlayer != null) {
             UpdateEqualizer(preset_index);
         }
 
     }
 
     private void UpdateEqualizer(int setting_index) {
-        switch(setting_index){
+        switch (setting_index) {
             case 0:
                 SetEqualizerBands_001();
-            return;
+                return;
             case 1:
                 SetEqualizerBands_002();
                 return;
@@ -280,118 +278,118 @@ public class MainActivity extends AppCompatActivity {
     //  Flat
     private void SetEqualizerBands_001() {
         short band = 0;
-        equalizer.setBandLevel(band, (short)0);
-        equalizer.setBandLevel((short)(band+1), (short)0);
-        equalizer.setBandLevel((short)(band+2), (short)0);
-        equalizer.setBandLevel((short)(band+3), (short)0);
-        equalizer.setBandLevel((short)(band+4), (short)0);
+        equalizer.setBandLevel(band, (short) 0);
+        equalizer.setBandLevel((short) (band + 1), (short) 0);
+        equalizer.setBandLevel((short) (band + 2), (short) 0);
+        equalizer.setBandLevel((short) (band + 3), (short) 0);
+        equalizer.setBandLevel((short) (band + 4), (short) 0);
 
     }
 
     //  Pop
     private void SetEqualizerBands_002() {
         short band = 0;
-        equalizer.setBandLevel(band, (short)150);
-        equalizer.setBandLevel((short)(band+1), (short)250);
-        equalizer.setBandLevel((short)(band+2), (short)500);
-        equalizer.setBandLevel((short)(band+3), (short)250);
-        equalizer.setBandLevel((short)(band+4), (short)150);
+        equalizer.setBandLevel(band, (short) 150);
+        equalizer.setBandLevel((short) (band + 1), (short) 250);
+        equalizer.setBandLevel((short) (band + 2), (short) 500);
+        equalizer.setBandLevel((short) (band + 3), (short) 250);
+        equalizer.setBandLevel((short) (band + 4), (short) 150);
 
     }
 
     //  Rock
     private void SetEqualizerBands_003() {
         short band = 0;
-        equalizer.setBandLevel(band, (short)800);
-        equalizer.setBandLevel((short)(band+1), (short)-1000);
-        equalizer.setBandLevel((short)(band+2), (short)0);
-        equalizer.setBandLevel((short)(band+3), (short)0);
-        equalizer.setBandLevel((short)(band+4), (short)1000);
+        equalizer.setBandLevel(band, (short) 800);
+        equalizer.setBandLevel((short) (band + 1), (short) -1000);
+        equalizer.setBandLevel((short) (band + 2), (short) 0);
+        equalizer.setBandLevel((short) (band + 3), (short) 0);
+        equalizer.setBandLevel((short) (band + 4), (short) 1000);
 
     }
 
     //  Classcial
     private void SetEqualizerBands_004() {
         short band = 0;
-        equalizer.setBandLevel(band, (short)500);
-        equalizer.setBandLevel((short)(band+1), (short)500);
-        equalizer.setBandLevel((short)(band+2), (short)500);
-        equalizer.setBandLevel((short)(band+3), (short)-500);
-        equalizer.setBandLevel((short)(band+4), (short)-500);
+        equalizer.setBandLevel(band, (short) 500);
+        equalizer.setBandLevel((short) (band + 1), (short) 500);
+        equalizer.setBandLevel((short) (band + 2), (short) 500);
+        equalizer.setBandLevel((short) (band + 3), (short) -500);
+        equalizer.setBandLevel((short) (band + 4), (short) -500);
 
     }
 
     //  Jazz
     private void SetEqualizerBands_005() {
         short band = 0;
-        equalizer.setBandLevel(band, (short)600);
-        equalizer.setBandLevel((short)(band+1), (short)200);
-        equalizer.setBandLevel((short)(band+2), (short)400);
-        equalizer.setBandLevel((short)(band+3), (short)200);
-        equalizer.setBandLevel((short)(band+4), (short)300);
+        equalizer.setBandLevel(band, (short) 600);
+        equalizer.setBandLevel((short) (band + 1), (short) 200);
+        equalizer.setBandLevel((short) (band + 2), (short) 400);
+        equalizer.setBandLevel((short) (band + 3), (short) 200);
+        equalizer.setBandLevel((short) (band + 4), (short) 300);
 
     }
 
     //  Headphone
     private void SetEqualizerBands_006() {
         short band = 0;
-        equalizer.setBandLevel(band, (short)700);
-        equalizer.setBandLevel((short)(band+1), (short)-500);
-        equalizer.setBandLevel((short)(band+2), (short)-500);
-        equalizer.setBandLevel((short)(band+3), (short)-500);
-        equalizer.setBandLevel((short)(band+4), (short)1000);
+        equalizer.setBandLevel(band, (short) 700);
+        equalizer.setBandLevel((short) (band + 1), (short) -500);
+        equalizer.setBandLevel((short) (band + 2), (short) -500);
+        equalizer.setBandLevel((short) (band + 3), (short) -500);
+        equalizer.setBandLevel((short) (band + 4), (short) 1000);
 
     }
 
     //  News
     private void SetEqualizerBands_007() {
         short band = 0;
-        equalizer.setBandLevel(band, (short)0);
-        equalizer.setBandLevel((short)(band+1), (short)700);
-        equalizer.setBandLevel((short)(band+2), (short)700);
-        equalizer.setBandLevel((short)(band+3), (short)250);
-        equalizer.setBandLevel((short)(band+4), (short)250);
+        equalizer.setBandLevel(band, (short) 0);
+        equalizer.setBandLevel((short) (band + 1), (short) 700);
+        equalizer.setBandLevel((short) (band + 2), (short) 700);
+        equalizer.setBandLevel((short) (band + 3), (short) 250);
+        equalizer.setBandLevel((short) (band + 4), (short) 250);
     }
 
     //  Dance
     private void SetEqualizerBands_008() {
         short band = 0;
-        equalizer.setBandLevel(band, (short)300);
-        equalizer.setBandLevel((short)(band+1), (short)700);
-        equalizer.setBandLevel((short)(band+2), (short)-300);
-        equalizer.setBandLevel((short)(band+3), (short)0);
-        equalizer.setBandLevel((short)(band+4), (short)800);
+        equalizer.setBandLevel(band, (short) 300);
+        equalizer.setBandLevel((short) (band + 1), (short) 700);
+        equalizer.setBandLevel((short) (band + 2), (short) -300);
+        equalizer.setBandLevel((short) (band + 3), (short) 0);
+        equalizer.setBandLevel((short) (band + 4), (short) 800);
     }
 
     //  Full Bass
     private void SetEqualizerBands_009() {
         short band = 0;
-        equalizer.setBandLevel(band, (short)800);
-        equalizer.setBandLevel((short)(band+1), (short)800);
-        equalizer.setBandLevel((short)(band+2), (short)0);
-        equalizer.setBandLevel((short)(band+3), (short)-800);
-        equalizer.setBandLevel((short)(band+4), (short)-1000);
+        equalizer.setBandLevel(band, (short) 800);
+        equalizer.setBandLevel((short) (band + 1), (short) 800);
+        equalizer.setBandLevel((short) (band + 2), (short) 0);
+        equalizer.setBandLevel((short) (band + 3), (short) -800);
+        equalizer.setBandLevel((short) (band + 4), (short) -1000);
     }
 
     //  Full Treble
     private void SetEqualizerBands_010() {
         short band = 0;
-        equalizer.setBandLevel(band, (short)-1000);
-        equalizer.setBandLevel((short)(band+1), (short)-500);
-        equalizer.setBandLevel((short)(band+2), (short)0);
-        equalizer.setBandLevel((short)(band+3), (short)500);
-        equalizer.setBandLevel((short)(band+4), (short)1000);
+        equalizer.setBandLevel(band, (short) -1000);
+        equalizer.setBandLevel((short) (band + 1), (short) -500);
+        equalizer.setBandLevel((short) (band + 2), (short) 0);
+        equalizer.setBandLevel((short) (band + 3), (short) 500);
+        equalizer.setBandLevel((short) (band + 4), (short) 1000);
     }
 
     //  Equalizer SeekBar onSeekbarChanged eventHandlers
 
-    private void SetupEqualizerSeekbars(){
+    private void SetupEqualizerSeekbars() {
         eq_1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if(equalizer != null){
+                if (equalizer != null) {
                     short band = 0;
-                    short value = (short)(-1500 + (i * 30));
+                    short value = (short) (-1500 + (i * 30));
                     equalizer.setBandLevel(band, value);
                     equalizerView.setText("Custom");
                 }
@@ -411,9 +409,9 @@ public class MainActivity extends AppCompatActivity {
         eq_2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if(equalizer != null){
+                if (equalizer != null) {
                     short band = 1;
-                    short value = (short)(-1500 + (i * 30));
+                    short value = (short) (-1500 + (i * 30));
                     equalizer.setBandLevel(band, value);
                     equalizerView.setText("Custom");
                 }
@@ -433,9 +431,9 @@ public class MainActivity extends AppCompatActivity {
         eq_3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if(equalizer != null){
+                if (equalizer != null) {
                     short band = 2;
-                    short value = (short)(-1500 + (i * 30));
+                    short value = (short) (-1500 + (i * 30));
                     equalizer.setBandLevel(band, value);
                     equalizerView.setText("Custom");
                 }
@@ -455,9 +453,9 @@ public class MainActivity extends AppCompatActivity {
         eq_4.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if(equalizer != null){
+                if (equalizer != null) {
                     short band = 3;
-                    short value = (short)(-1500 + (i * 30));
+                    short value = (short) (-1500 + (i * 30));
                     equalizer.setBandLevel(band, value);
                     equalizerView.setText("Custom");
                 }
@@ -477,9 +475,9 @@ public class MainActivity extends AppCompatActivity {
         eq_5.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if(equalizer != null){
+                if (equalizer != null) {
                     short band = 4;
-                    short value = (short)(-1500 + (i * 30));
+                    short value = (short) (-1500 + (i * 30));
                     equalizer.setBandLevel(band, value);
                     equalizerView.setText("Custom");
                 }
@@ -497,11 +495,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void SetupPlayButton(){
+    private void SetupPlayButton() {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(stations.size() > 0){
+                if (stations.size() > 0) {
                     if (!isPlaying) {
                         mediaPlayer = new MediaPlayer();
                         mediaPlayer.setVolume(0.5f, 0.5f);
@@ -514,8 +512,8 @@ public class MainActivity extends AppCompatActivity {
                                 PreferenceManager
                                         .getDefaultSharedPreferences(getApplicationContext());
                         index = prefs.getInt("index", 0);
-                        preset_index = (short)prefs.getInt("eq_index", 0);
-                        try{
+                        preset_index = (short) prefs.getInt("eq_index", 0);
+                        try {
 
                             UpdateEqualizer(preset_index);
                             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -526,9 +524,9 @@ public class MainActivity extends AppCompatActivity {
                             });
                             mediaPlayer.setDataSource(stations.get(index));
                             mediaPlayer.prepareAsync();
-                        }catch(IOException e){
-                            Toast.makeText(getApplicationContext(),e.getMessage(),
-                                    Toast.LENGTH_LONG ).show();
+                        } catch (IOException e) {
+                            Toast.makeText(getApplicationContext(), e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
                         }
                         getMeta();
                         isPlaying = true;
@@ -546,8 +544,7 @@ public class MainActivity extends AppCompatActivity {
 
                         isPlaying = false;
                     }
-                }
-                else{
+                } else {
                     Toast.makeText(getApplicationContext(), "Station database is empty!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -555,44 +552,36 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getMeta()
-    {
+    private void getMeta() {
         Timer timer = new Timer();
-        timer.schedule(new TimerTask()
-        {
-            public void run()
-            {
-                try
-                {
-                    IcyStreamMeta icy   = new IcyStreamMeta();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                try {
+                    IcyStreamMeta icy = new IcyStreamMeta();
                     icy.setStreamUrl(new URL(stations.get(index)));
-                    final String title = icy.getTitle();
-                    final TextView song_title = findViewById(R.id.song_title);
-                    final String artist = icy.getArtist();
-                    final TextView song_artist = findViewById(R.id.song_artist);
-                    runOnUiThread(new Runnable()
-                    {
-                        public void run()
-                        {
-                            if(artist != null){
-                                song_artist.setText(artist);
+                    if (!icy.isError()) {
+                        final String title = icy.getTitle();
+                        final TextView song_title = findViewById(R.id.song_title);
+                        final String artist = icy.getArtist();
+                        final TextView song_artist = findViewById(R.id.song_artist);
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                if (artist != null) {
+                                    song_artist.setText(artist);
+                                }
+                                if (title != null) {
+                                    song_title.setText(title);
+                                }
                             }
-                            if(title != null){
-                                song_title.setText(title);
-                            }
-                        }
-                    });
-                }
-                catch (MalformedURLException e)
-                {
+                        });
+                    }
+                } catch (MalformedURLException e) {
                     e.printStackTrace();
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-        },0,1000);
+        }, 0, 1000);
     }
 
 }

@@ -105,7 +105,7 @@ public class Station_Database_Handler extends SQLiteOpenHelper {
     }
 
     public void addInitials() {
-        addStation("http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk", "BBC");
+        addStation("http://gr.fluidstream.eu/gr1.mp3", "Giornale Radio");
         addStation("http://fm939.wnyc.org/wnycfm", "WNYC 93.9 FM");
         addStation("http://stream.srg-ssr.ch/m/rsp/mp3_128", "Radio Swiss Pop");
         addStation("http://stream.srg-ssr.ch/m/rsc_de/mp3_128", "Radio Swiss Classic");
