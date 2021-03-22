@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private Button btn;
+    private Button stations_btn;
     private boolean isPlaying;
     private MediaPlayer mediaPlayer;
     private ArrayList<String> stations;
@@ -34,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private short preset_index;
     private Equalizer equalizer;
     private SeekBar volumeSeekbar;
+    private SeekBar eq_1;
+    private SeekBar eq_2;
+    private SeekBar eq_3;
+    private SeekBar eq_4;
+    private SeekBar eq_5;
     private TextView stationView;
     private TextView equalizerView;
     private String[] equalizer_presets = {"Flat", "Pop", "Rock", "Classical",
@@ -46,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         UpdateStationsList();
         btn = findViewById(R.id.audioStreamBtn);
+        stations_btn = findViewById(R.id.stationsBtn);
         isPlaying = false;
         equalizer = new Equalizer(1, 1);
         stationView = findViewById(R.id.station);
@@ -71,61 +78,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    if(stations.size() > 0){
-                            if (!isPlaying) {
-                            mediaPlayer = new MediaPlayer();
-                            mediaPlayer.setVolume(0.5f, 0.5f);
-                            volumeSeekbar.setProgress(50);
-                            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                            equalizer = new Equalizer(1, mediaPlayer.getAudioSessionId());
-                            equalizer.setEnabled(true);
-                            btn.setText("Stop");
-                            SharedPreferences prefs =
-                                    PreferenceManager
-                                            .getDefaultSharedPreferences(getApplicationContext());
-                            index = prefs.getInt("index", 0);
-                            preset_index = (short)prefs.getInt("eq_index", 0);
-                            try{
 
-                                UpdateEqualizer(preset_index);
-                                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                                    @Override
-                                    public void onPrepared(final MediaPlayer mp) {
-                                        mp.start();
-                                    }
-                                });
-                                mediaPlayer.setDataSource(stations.get(index));
-                                mediaPlayer.prepareAsync();
-                            }catch(IOException e){
-                                Toast.makeText(getApplicationContext(),e.getMessage(),
-                                        Toast.LENGTH_LONG ).show();
-                            }
 
-                            isPlaying = true;
-
-                        } else {
-                            btn.setText("Play");
-
-                            if (mediaPlayer.isPlaying()) {
-                                mediaPlayer.stop();
-                                mediaPlayer.release();
-                                mediaPlayer = null;
-                                equalizer.release();
-                                equalizer = null;
-                            }
-
-                            isPlaying = false;
-                        }
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(), "Station database is empty!", Toast.LENGTH_LONG).show();
-                    }
-                }
-
-        });
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -142,14 +96,41 @@ public class MainActivity extends AppCompatActivity {
             btn.setTextSize(15);
             params.width = 300;
             seekbarLayout.setLayoutParams(params);
-            imgLayout.removeView(findViewById(R.id.logo1));
-            imgLayout.removeView(findViewById(R.id.logo4));
+
         }else{
             params.width = 350 * (int)((float)volumeSeekbar.getContext()
                     .getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
             seekbarLayout.setLayoutParams(params);
         }
 
+        eq_1 = findViewById(R.id.eq_1);
+        //eq_1.setMax(3000);
+        eq_2 = findViewById(R.id.eq_2);
+        //eq_2.setMax(3000);
+        eq_3 = findViewById(R.id.eq_3);
+        //eq_3.setMax(3000);
+        eq_4 = findViewById(R.id.eq_4);
+        //eq_4.setMax(3000);
+        eq_5 = findViewById(R.id.eq_5);
+        //eq_5.setMax(3000);
+
+        SetupEqualizerSeekbars();
+        SetupPlayButton();
+        SetupStationsButton();
+
+
+//        short[] levels = equalizer.getBandLevelRange();
+//        Toast.makeText(getApplicationContext(), levels[0] + " " + levels[1], Toast.LENGTH_LONG).show();
+
+    }
+
+    private void SetupStationsButton() {
+        stations_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSelectActivity();
+            }
+        });
     }
 
     @Override
@@ -396,5 +377,176 @@ public class MainActivity extends AppCompatActivity {
         equalizer.setBandLevel((short)(band+4), (short)1000);
     }
 
+    //  Equalizer SeekBar onSeekbarChanged eventHandlers
+
+    private void SetupEqualizerSeekbars(){
+        eq_1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(equalizer != null){
+                    short band = 0;
+                    short value = (short)(-1500 + (i * 30));
+                    equalizer.setBandLevel(band, value);
+                    equalizerView.setText("Custom");
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        eq_2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(equalizer != null){
+                    short band = 1;
+                    short value = (short)(-1500 + (i * 30));
+                    equalizer.setBandLevel(band, value);
+                    equalizerView.setText("Custom");
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        eq_3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(equalizer != null){
+                    short band = 2;
+                    short value = (short)(-1500 + (i * 30));
+                    equalizer.setBandLevel(band, value);
+                    equalizerView.setText("Custom");
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        eq_4.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(equalizer != null){
+                    short band = 3;
+                    short value = (short)(-1500 + (i * 30));
+                    equalizer.setBandLevel(band, value);
+                    equalizerView.setText("Custom");
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        eq_5.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if(equalizer != null){
+                    short band = 4;
+                    short value = (short)(-1500 + (i * 30));
+                    equalizer.setBandLevel(band, value);
+                    equalizerView.setText("Custom");
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+
+    private void SetupPlayButton(){
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(stations.size() > 0){
+                    if (!isPlaying) {
+                        mediaPlayer = new MediaPlayer();
+                        mediaPlayer.setVolume(0.5f, 0.5f);
+                        volumeSeekbar.setProgress(50);
+                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        equalizer = new Equalizer(1, mediaPlayer.getAudioSessionId());
+                        equalizer.setEnabled(true);
+                        btn.setText("Stop");
+                        SharedPreferences prefs =
+                                PreferenceManager
+                                        .getDefaultSharedPreferences(getApplicationContext());
+                        index = prefs.getInt("index", 0);
+                        preset_index = (short)prefs.getInt("eq_index", 0);
+                        try{
+
+                            UpdateEqualizer(preset_index);
+                            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                @Override
+                                public void onPrepared(final MediaPlayer mp) {
+                                    mp.start();
+                                }
+                            });
+                            mediaPlayer.setDataSource(stations.get(index));
+                            mediaPlayer.prepareAsync();
+                        }catch(IOException e){
+                            Toast.makeText(getApplicationContext(),e.getMessage(),
+                                    Toast.LENGTH_LONG ).show();
+                        }
+
+                        isPlaying = true;
+
+                    } else {
+                        btn.setText("Play");
+
+                        if (mediaPlayer.isPlaying()) {
+                            mediaPlayer.stop();
+                            mediaPlayer.release();
+                            mediaPlayer = null;
+                            equalizer.release();
+                            equalizer = null;
+                        }
+
+                        isPlaying = false;
+                    }
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Station database is empty!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        });
+    }
 
 }
