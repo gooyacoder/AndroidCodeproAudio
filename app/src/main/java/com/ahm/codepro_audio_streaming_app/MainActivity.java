@@ -20,7 +20,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             "Jazz", "Headphone", "News", "Dance", "Full Bass", "Full Treble"};
     private LinearLayout seekbarLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         stationView = findViewById(R.id.station);
         equalizerView = findViewById(R.id.equalizer);
         volumeSeekbar = findViewById(R.id.volume_seekbar);
+
         volumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -93,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(height == 480 && width == 320){
             btn.setPadding(0,0,0,0);
-            btn.setTextSize(15);
+            //btn.setTextSize(15);
             params.width = 300;
             seekbarLayout.setLayoutParams(params);
 
@@ -524,7 +530,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),e.getMessage(),
                                     Toast.LENGTH_LONG ).show();
                         }
-
+                        getMeta();
                         isPlaying = true;
 
                     } else {
@@ -547,6 +553,46 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void getMeta()
+    {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask()
+        {
+            public void run()
+            {
+                try
+                {
+                    IcyStreamMeta icy   = new IcyStreamMeta();
+                    icy.setStreamUrl(new URL(stations.get(index)));
+                    final String title = icy.getTitle();
+                    final TextView song_title = findViewById(R.id.song_title);
+                    final String artist = icy.getArtist();
+                    final TextView song_artist = findViewById(R.id.song_artist);
+                    runOnUiThread(new Runnable()
+                    {
+                        public void run()
+                        {
+                            if(artist != null){
+                                song_artist.setText(artist);
+                            }
+                            if(title != null){
+                                song_title.setText(title);
+                            }
+                        }
+                    });
+                }
+                catch (MalformedURLException e)
+                {
+                    e.printStackTrace();
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        },0,1000);
     }
 
 }

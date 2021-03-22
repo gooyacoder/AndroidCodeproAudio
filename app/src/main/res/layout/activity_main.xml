@@ -14,9 +14,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-light"
         android:text=""
         android:textAllCaps="false"
         android:textSize="26sp"
+        android:layout_gravity="start"
+        android:paddingLeft="50dp"/>
+
+
+    <TextView
+        android:id="@+id/song_artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:text=""
+        android:fontFamily="sans-serif-light"
+        android:textAllCaps="false"
+        android:textSize="17sp"
+        android:layout_gravity="start"
+        android:paddingLeft="50dp"/>
+
+    <TextView
+        android:id="@+id/song_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:text=""
+        android:fontFamily="sans-serif-light"
+        android:textAllCaps="false"
+        android:textSize="17sp"
         android:layout_gravity="start"
         android:paddingLeft="50dp"/>
 
@@ -25,6 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
+        android:fontFamily="sans-serif-light"
         android:text=""
         android:textAllCaps="false"
         android:textSize="17sp"
@@ -35,18 +62,18 @@
     <LinearLayout
         android:id="@+id/image_layout"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="115dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="15dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="192dp">
+            android:layout_height="115dp">
             <SeekBar
                 android:id="@+id/eq_1"
-                android:layout_width="192dp"
+                android:layout_width="115dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -55,10 +82,10 @@
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="192dp">
+            android:layout_height="115dp">
             <SeekBar
                 android:id="@+id/eq_2"
-                android:layout_width="192dp"
+                android:layout_width="115dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -67,10 +94,10 @@
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="192dp">
+            android:layout_height="115dp">
             <SeekBar
                 android:id="@+id/eq_3"
-                android:layout_width="192dp"
+                android:layout_width="115dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -79,10 +106,10 @@
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="192dp">
+            android:layout_height="115dp">
             <SeekBar
                 android:id="@+id/eq_4"
-                android:layout_width="192dp"
+                android:layout_width="115dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -91,10 +118,10 @@
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="192dp">
+            android:layout_height="115dp">
             <SeekBar
                 android:id="@+id/eq_5"
-                android:layout_width="192dp"
+                android:layout_width="115dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -127,7 +154,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <Button
             android:id="@+id/stationsBtn"
