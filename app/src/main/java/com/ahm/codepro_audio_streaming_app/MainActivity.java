@@ -37,16 +37,11 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> stations;
     private ArrayList<String> stationsNames;
     private int index;
-    private short preset_index;
     private Equalizer equalizer;
     private SeekBar volumeSeekbar;
-    private SeekBar eq_1;
-    private SeekBar eq_2;
-    private SeekBar eq_3;
-    private SeekBar eq_4;
-    private SeekBar eq_5;
+    private SeekBar eq_1, eq_2, eq_3, eq_4, eq_5;
+    private int num_1, num_2, num_3, num_4, num_5;
     private TextView stationView;
-    private TextView equalizerView;
     private String[] equalizer_presets = {"Flat", "Pop", "Rock", "Classical",
             "Jazz", "Headphone", "News", "Dance", "Full Bass", "Full Treble"};
     private LinearLayout seekbarLayout;
@@ -62,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         isPlaying = false;
         equalizer = new Equalizer(1, 1);
         stationView = findViewById(R.id.station);
-        equalizerView = findViewById(R.id.equalizer);
+
         volumeSeekbar = findViewById(R.id.volume_seekbar);
 
         volumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -155,15 +150,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.select:
-                showSelectActivity();
-                return true;
+
             case R.id.add:
                 showAddActivity();
                 return true;
-            case R.id.eq:
-                showEqualizerActivity();
-                return true;
+
             case R.id.remove:
                 this.finish();
                 return true;
@@ -216,170 +207,16 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         UpdateStationsList();
         UpdateStationsNamesList();
-/*        if(mediaPlayer == null){
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            isPlaying = false;
-            equalizer = new Equalizer(1, mediaPlayer.getAudioSessionId());
-            equalizer.setEnabled(true);
-        }*/
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        preset_index = (short) prefs.getInt("eq_index", 0);
-        equalizerView.setText(equalizer_presets[preset_index]);
         index = prefs.getInt("index", 0);
         if (stationsNames.size() > 0) {
             stationView.setText(stationsNames.get(index));
         }
-        if (mediaPlayer != null) {
-            UpdateEqualizer(preset_index);
-        }
+
 
     }
 
-    private void UpdateEqualizer(int setting_index) {
-        switch (setting_index) {
-            case 0:
-                SetEqualizerBands_001();
-                return;
-            case 1:
-                SetEqualizerBands_002();
-                return;
-            case 2:
-                SetEqualizerBands_003();
-                return;
-            case 3:
-                SetEqualizerBands_004();
-                return;
-            case 4:
-                SetEqualizerBands_005();
-                return;
-            case 5:
-                SetEqualizerBands_006();
-                return;
-            case 6:
-                SetEqualizerBands_007();
-                return;
-            case 7:
-                SetEqualizerBands_008();
-                return;
-            case 8:
-                SetEqualizerBands_009();
-                return;
-            case 9:
-                SetEqualizerBands_010();
-                return;
-            default:
-                return;
-
-        }
-    }
-
-    //  Flat
-    private void SetEqualizerBands_001() {
-        short band = 0;
-        equalizer.setBandLevel(band, (short) 0);
-        equalizer.setBandLevel((short) (band + 1), (short) 0);
-        equalizer.setBandLevel((short) (band + 2), (short) 0);
-        equalizer.setBandLevel((short) (band + 3), (short) 0);
-        equalizer.setBandLevel((short) (band + 4), (short) 0);
-
-    }
-
-    //  Pop
-    private void SetEqualizerBands_002() {
-        short band = 0;
-        equalizer.setBandLevel(band, (short) 150);
-        equalizer.setBandLevel((short) (band + 1), (short) 250);
-        equalizer.setBandLevel((short) (band + 2), (short) 500);
-        equalizer.setBandLevel((short) (band + 3), (short) 250);
-        equalizer.setBandLevel((short) (band + 4), (short) 150);
-
-    }
-
-    //  Rock
-    private void SetEqualizerBands_003() {
-        short band = 0;
-        equalizer.setBandLevel(band, (short) 800);
-        equalizer.setBandLevel((short) (band + 1), (short) -1000);
-        equalizer.setBandLevel((short) (band + 2), (short) 0);
-        equalizer.setBandLevel((short) (band + 3), (short) 0);
-        equalizer.setBandLevel((short) (band + 4), (short) 1000);
-
-    }
-
-    //  Classcial
-    private void SetEqualizerBands_004() {
-        short band = 0;
-        equalizer.setBandLevel(band, (short) 500);
-        equalizer.setBandLevel((short) (band + 1), (short) 500);
-        equalizer.setBandLevel((short) (band + 2), (short) 500);
-        equalizer.setBandLevel((short) (band + 3), (short) -500);
-        equalizer.setBandLevel((short) (band + 4), (short) -500);
-
-    }
-
-    //  Jazz
-    private void SetEqualizerBands_005() {
-        short band = 0;
-        equalizer.setBandLevel(band, (short) 600);
-        equalizer.setBandLevel((short) (band + 1), (short) 200);
-        equalizer.setBandLevel((short) (band + 2), (short) 400);
-        equalizer.setBandLevel((short) (band + 3), (short) 200);
-        equalizer.setBandLevel((short) (band + 4), (short) 300);
-
-    }
-
-    //  Headphone
-    private void SetEqualizerBands_006() {
-        short band = 0;
-        equalizer.setBandLevel(band, (short) 700);
-        equalizer.setBandLevel((short) (band + 1), (short) -500);
-        equalizer.setBandLevel((short) (band + 2), (short) -500);
-        equalizer.setBandLevel((short) (band + 3), (short) -500);
-        equalizer.setBandLevel((short) (band + 4), (short) 1000);
-
-    }
-
-    //  News
-    private void SetEqualizerBands_007() {
-        short band = 0;
-        equalizer.setBandLevel(band, (short) 0);
-        equalizer.setBandLevel((short) (band + 1), (short) 700);
-        equalizer.setBandLevel((short) (band + 2), (short) 700);
-        equalizer.setBandLevel((short) (band + 3), (short) 250);
-        equalizer.setBandLevel((short) (band + 4), (short) 250);
-    }
-
-    //  Dance
-    private void SetEqualizerBands_008() {
-        short band = 0;
-        equalizer.setBandLevel(band, (short) 300);
-        equalizer.setBandLevel((short) (band + 1), (short) 700);
-        equalizer.setBandLevel((short) (band + 2), (short) -300);
-        equalizer.setBandLevel((short) (band + 3), (short) 0);
-        equalizer.setBandLevel((short) (band + 4), (short) 800);
-    }
-
-    //  Full Bass
-    private void SetEqualizerBands_009() {
-        short band = 0;
-        equalizer.setBandLevel(band, (short) 800);
-        equalizer.setBandLevel((short) (band + 1), (short) 800);
-        equalizer.setBandLevel((short) (band + 2), (short) 0);
-        equalizer.setBandLevel((short) (band + 3), (short) -800);
-        equalizer.setBandLevel((short) (band + 4), (short) -1000);
-    }
-
-    //  Full Treble
-    private void SetEqualizerBands_010() {
-        short band = 0;
-        equalizer.setBandLevel(band, (short) -1000);
-        equalizer.setBandLevel((short) (band + 1), (short) -500);
-        equalizer.setBandLevel((short) (band + 2), (short) 0);
-        equalizer.setBandLevel((short) (band + 3), (short) 500);
-        equalizer.setBandLevel((short) (band + 4), (short) 1000);
-    }
 
     //  Equalizer SeekBar onSeekbarChanged eventHandlers
 
@@ -391,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
                     short band = 0;
                     short value = (short) (-1500 + (i * 30));
                     equalizer.setBandLevel(band, value);
-                    equalizerView.setText("Custom");
+
                 }
             }
 
@@ -413,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
                     short band = 1;
                     short value = (short) (-1500 + (i * 30));
                     equalizer.setBandLevel(band, value);
-                    equalizerView.setText("Custom");
+
                 }
             }
 
@@ -435,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
                     short band = 2;
                     short value = (short) (-1500 + (i * 30));
                     equalizer.setBandLevel(band, value);
-                    equalizerView.setText("Custom");
+
                 }
             }
 
@@ -457,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
                     short band = 3;
                     short value = (short) (-1500 + (i * 30));
                     equalizer.setBandLevel(band, value);
-                    equalizerView.setText("Custom");
+
                 }
             }
 
@@ -479,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
                     short band = 4;
                     short value = (short) (-1500 + (i * 30));
                     equalizer.setBandLevel(band, value);
-                    equalizerView.setText("Custom");
+
                 }
             }
 
@@ -507,15 +344,16 @@ public class MainActivity extends AppCompatActivity {
                         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                         equalizer = new Equalizer(1, mediaPlayer.getAudioSessionId());
                         equalizer.setEnabled(true);
+                        InitializeEqualizer();
                         btn.setText("Stop");
                         SharedPreferences prefs =
                                 PreferenceManager
                                         .getDefaultSharedPreferences(getApplicationContext());
                         index = prefs.getInt("index", 0);
-                        preset_index = (short) prefs.getInt("eq_index", 0);
+
                         try {
 
-                            UpdateEqualizer(preset_index);
+
                             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                                 @Override
                                 public void onPrepared(final MediaPlayer mp) {
@@ -550,6 +388,36 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void InitializeEqualizer() {
+        if (equalizer != null) {
+            short band = 0;
+            num_1 = eq_1.getProgress();
+            short value = (short) (-1500 + (num_1 * 30));
+            equalizer.setBandLevel(band, value);
+
+            band = 1;
+            num_2 = eq_2.getProgress();
+            value = (short) (-1500 + (num_2 * 30));
+            equalizer.setBandLevel(band, value);
+
+            band = 2;
+            num_3 = eq_3.getProgress();
+            value = (short) (-1500 + (num_3 * 30));
+            equalizer.setBandLevel(band, value);
+
+            band = 3;
+            num_4 = eq_4.getProgress();
+            value = (short) (-1500 + (num_3 * 30));
+            equalizer.setBandLevel(band, value);
+
+            band = 4;
+            num_5 = eq_5.getProgress();
+            value = (short) (-1500 + (num_4 * 30));
+            equalizer.setBandLevel(band, value);
+
+        }
     }
 
     private void getMeta() {

@@ -10,15 +10,11 @@
         android:title="Option Menu"
         app:showAsAction="always">
         <menu>
-            <item android:id="@+id/select"
-                android:title="@string/select_station"
-                />
+
             <item android:id="@+id/add"
                 android:title="@string/add_station"
                 />
-            <item android:id="@+id/eq"
-                android:title="@string/equalizer"
-                />
+
             <item android:id="@+id/remove"
                 android:title="@string/exit"
                 />
