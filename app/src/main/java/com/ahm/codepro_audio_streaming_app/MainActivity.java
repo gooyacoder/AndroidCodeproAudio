@@ -41,9 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar volumeSeekbar;
     private SeekBar eq_1, eq_2, eq_3, eq_4, eq_5;
     private int num_1, num_2, num_3, num_4, num_5;
-    private TextView stationView;
-    private String[] equalizer_presets = {"Flat", "Pop", "Rock", "Classical",
-            "Jazz", "Headphone", "News", "Dance", "Full Bass", "Full Treble"};
+    private TextView stationView;;
     private LinearLayout seekbarLayout;
 
 
@@ -57,9 +55,36 @@ public class MainActivity extends AppCompatActivity {
         isPlaying = false;
         equalizer = new Equalizer(1, 1);
         stationView = findViewById(R.id.station);
-
         volumeSeekbar = findViewById(R.id.volume_seekbar);
+        SetupVolumeSeekbar();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        seekbarLayout = findViewById(R.id.seekbarLayout);
+        ViewGroup.LayoutParams params = seekbarLayout.getLayoutParams();
+        LinearLayout imgLayout = findViewById(R.id.image_layout);
+        if (height == 480 && width == 320) {
+            btn.setPadding(0, 0, 0, 0);
+            params.width = 300;
+            seekbarLayout.setLayoutParams(params);
 
+        } else {
+            params.width = 350 * (int) ((float) volumeSeekbar.getContext()
+                    .getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+            seekbarLayout.setLayoutParams(params);
+        }
+        eq_1 = findViewById(R.id.eq_1);
+        eq_2 = findViewById(R.id.eq_2);
+        eq_3 = findViewById(R.id.eq_3);
+        eq_4 = findViewById(R.id.eq_4);
+        eq_5 = findViewById(R.id.eq_5);
+        SetupPlayButton();
+        SetupEqualizerSeekbars();
+        SetupStationsButton();
+    }
+
+    private void SetupVolumeSeekbar() {
         volumeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -79,49 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-
-        seekbarLayout = findViewById(R.id.seekbarLayout);
-        ViewGroup.LayoutParams params = seekbarLayout.getLayoutParams();
-
-        LinearLayout imgLayout = findViewById(R.id.image_layout);
-
-        if (height == 480 && width == 320) {
-            btn.setPadding(0, 0, 0, 0);
-            //btn.setTextSize(15);
-            params.width = 300;
-            seekbarLayout.setLayoutParams(params);
-
-        } else {
-            params.width = 350 * (int) ((float) volumeSeekbar.getContext()
-                    .getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-            seekbarLayout.setLayoutParams(params);
-        }
-
-        eq_1 = findViewById(R.id.eq_1);
-        //eq_1.setMax(3000);
-        eq_2 = findViewById(R.id.eq_2);
-        //eq_2.setMax(3000);
-        eq_3 = findViewById(R.id.eq_3);
-        //eq_3.setMax(3000);
-        eq_4 = findViewById(R.id.eq_4);
-        //eq_4.setMax(3000);
-        eq_5 = findViewById(R.id.eq_5);
-        //eq_5.setMax(3000);
-
-        SetupEqualizerSeekbars();
-        SetupPlayButton();
-        SetupStationsButton();
-
-
-//        short[] levels = equalizer.getBandLevelRange();
-//        Toast.makeText(getApplicationContext(), levels[0] + " " + levels[1], Toast.LENGTH_LONG).show();
-
     }
 
     private void SetupStationsButton() {
