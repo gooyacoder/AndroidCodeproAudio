@@ -209,7 +209,13 @@ public class MainActivity extends AppCompatActivity {
                 if (equalizer != null) {
                     short band = 0;
                     short value = (short) (-1500 + (i * 30));
-                    equalizer.setBandLevel(band, value);
+                    try{
+                        equalizer.setBandLevel(band, value);
+                    }
+                    catch(Exception exception){
+
+                    }
+
 
                 }
             }
@@ -231,7 +237,12 @@ public class MainActivity extends AppCompatActivity {
                 if (equalizer != null) {
                     short band = 1;
                     short value = (short) (-1500 + (i * 30));
-                    equalizer.setBandLevel(band, value);
+                    try{
+                        equalizer.setBandLevel(band, value);
+                    }
+                    catch(Exception exception){
+
+                    }
 
                 }
             }
@@ -253,7 +264,12 @@ public class MainActivity extends AppCompatActivity {
                 if (equalizer != null) {
                     short band = 2;
                     short value = (short) (-1500 + (i * 30));
-                    equalizer.setBandLevel(band, value);
+                    try{
+                        equalizer.setBandLevel(band, value);
+                    }
+                    catch(Exception exception){
+
+                    }
 
                 }
             }
@@ -275,7 +291,12 @@ public class MainActivity extends AppCompatActivity {
                 if (equalizer != null) {
                     short band = 3;
                     short value = (short) (-1500 + (i * 30));
-                    equalizer.setBandLevel(band, value);
+                    try{
+                        equalizer.setBandLevel(band, value);
+                    }
+                    catch(Exception exception){
+
+                    }
 
                 }
             }
@@ -297,7 +318,12 @@ public class MainActivity extends AppCompatActivity {
                 if (equalizer != null) {
                     short band = 4;
                     short value = (short) (-1500 + (i * 30));
-                    equalizer.setBandLevel(band, value);
+                    try{
+                        equalizer.setBandLevel(band, value);
+                    }
+                    catch(Exception exception){
+
+                    }
 
                 }
             }
