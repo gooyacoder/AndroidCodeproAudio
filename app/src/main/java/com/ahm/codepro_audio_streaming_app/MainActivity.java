@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private int num_1, num_2, num_3, num_4, num_5;
     private TextView stationView;;
     private LinearLayout seekbarLayout;
+    private Timer timer;
 
 
     @Override
@@ -386,6 +387,8 @@ public class MainActivity extends AppCompatActivity {
                             mediaPlayer = null;
                             equalizer.release();
                             equalizer = null;
+                            timer.cancel();
+                            timer = null;
                         }
 
                         isPlaying = false;
@@ -429,7 +432,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getMeta() {
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             public void run() {
                 try {
