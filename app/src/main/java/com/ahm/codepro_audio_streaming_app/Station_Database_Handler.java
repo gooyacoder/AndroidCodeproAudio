@@ -106,13 +106,13 @@ public class Station_Database_Handler extends SQLiteOpenHelper {
 
     public void addInitials() {
         addStation("http://gr.fluidstream.eu/gr1.mp3", "Giornale Radio");
+        addStation("http://icestreaming.rai.it/1.mp3", "Rai 1");
+        addStation("http://icestreaming.rai.it/2.mp3", "Rai 2");
+        addStation("http://icestreaming.rai.it/3.mp3", "Rai 3");
         addStation("http://fm939.wnyc.org/wnycfm", "WNYC 93.9 FM");
         addStation("http://stream.srg-ssr.ch/m/rsp/mp3_128", "Radio Swiss Pop");
         addStation("http://stream.srg-ssr.ch/m/rsc_de/mp3_128", "Radio Swiss Classic");
-        addStation("http://109.74.196.76:8060/stream", "Davide of MIMIC");
-        addStation("http://uk7.internet-radio.com:8226/stream", "Box UK Radio");
-        addStation("http://212.71.250.12:8040/stream", "Merge 104.8");
-        addStation("http://uk6.internet-radio.com:8124/stream", "Party Vibe Music");
+        addStation("http://174.36.206.197:8000", "Venice Classic Radio Italia");
     }
 }
 
