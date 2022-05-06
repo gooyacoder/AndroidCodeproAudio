@@ -1,5 +1,6 @@
 package com.ahm.codepro_audio_streaming_app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
@@ -80,9 +81,25 @@ public class MainActivity extends AppCompatActivity {
         eq_3 = findViewById(R.id.eq_3);
         eq_4 = findViewById(R.id.eq_4);
         eq_5 = findViewById(R.id.eq_5);
+
         SetupPlayButton();
         SetupEqualizerSeekbars();
+        RestoreEqualizerSeekbars();
         SetupStationsButton();
+    }
+
+    private void RestoreEqualizerSeekbars() {
+        SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int mProgress = mSharedPrefs.getInt("band_0", 50);
+        eq_1.setProgress(mProgress);
+        mProgress = mSharedPrefs.getInt("band_1", 50);
+        eq_2.setProgress(mProgress);
+        mProgress = mSharedPrefs.getInt("band_2", 50);
+        eq_3.setProgress(mProgress);
+        mProgress = mSharedPrefs.getInt("band_3", 50);
+        eq_4.setProgress(mProgress);
+        mProgress = mSharedPrefs.getInt("band_4", 50);
+        eq_5.setProgress(mProgress);
     }
 
     private void SetupVolumeSeekbar() {
@@ -212,6 +229,10 @@ public class MainActivity extends AppCompatActivity {
                     short value = (short) (-1500 + (i * 30));
                     try{
                         equalizer.setBandLevel(band, value);
+                        int mProgress = i;
+                        SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor mEditor = mSharedPrefs.edit();
+                        mEditor.putInt("band_0", mProgress).commit();
                     }
                     catch(Exception exception){
 
@@ -240,6 +261,10 @@ public class MainActivity extends AppCompatActivity {
                     short value = (short) (-1500 + (i * 30));
                     try{
                         equalizer.setBandLevel(band, value);
+                        int mProgress = i;
+                        SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor mEditor = mSharedPrefs.edit();
+                        mEditor.putInt("band_1", mProgress).commit();
                     }
                     catch(Exception exception){
 
@@ -267,6 +292,10 @@ public class MainActivity extends AppCompatActivity {
                     short value = (short) (-1500 + (i * 30));
                     try{
                         equalizer.setBandLevel(band, value);
+                        int mProgress = i;
+                        SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor mEditor = mSharedPrefs.edit();
+                        mEditor.putInt("band_2", mProgress).commit();
                     }
                     catch(Exception exception){
 
@@ -294,6 +323,10 @@ public class MainActivity extends AppCompatActivity {
                     short value = (short) (-1500 + (i * 30));
                     try{
                         equalizer.setBandLevel(band, value);
+                        int mProgress = i;
+                        SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor mEditor = mSharedPrefs.edit();
+                        mEditor.putInt("band_3", mProgress).commit();
                     }
                     catch(Exception exception){
 
@@ -321,6 +354,10 @@ public class MainActivity extends AppCompatActivity {
                     short value = (short) (-1500 + (i * 30));
                     try{
                         equalizer.setBandLevel(band, value);
+                        int mProgress = i;
+                        SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor mEditor = mSharedPrefs.edit();
+                        mEditor.putInt("band_4", mProgress).commit();
                     }
                     catch(Exception exception){
 
@@ -463,4 +500,11 @@ public class MainActivity extends AppCompatActivity {
         }, 0, 1000);
     }
 
+    public void btn_reset_clicked(View view) {
+        eq_1.setProgress(50);
+        eq_2.setProgress(50);
+        eq_3.setProgress(50);
+        eq_4.setProgress(50);
+        eq_5.setProgress(50);
+    }
 }

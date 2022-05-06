@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
     tools:context="com.ahm.codepro_audio_streaming_app.MainActivity"
     android:gravity="center">
 
@@ -19,53 +18,67 @@
         android:textAllCaps="false"
         android:textSize="26sp"
         android:layout_gravity="start"
-        android:paddingLeft="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_weight="1"/>
 
-
-    <TextView
-        android:id="@+id/song_artist"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:text=""
-        android:fontFamily="sans-serif-light"
-        android:textAllCaps="false"
-        android:textSize="17sp"
-        android:layout_gravity="start"
-        android:paddingLeft="50dp"
-        android:layout_weight="1"/>
+        android:orientation="horizontal"
+        android:layout_weight="3">
 
-    <TextView
-        android:id="@+id/song_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:text=""
-        android:fontFamily="sans-serif-light"
-        android:textAllCaps="false"
-        android:textSize="17sp"
-        android:layout_gravity="start"
-        android:paddingLeft="50dp"
-        android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/song_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text=""
+            android:fontFamily="sans-serif-light"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:layout_gravity="start"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+
+            />
+
+        <TextView
+            android:id="@+id/song_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text=""
+            android:fontFamily="sans-serif-light"
+            android:textStyle="italic"
+            android:textAllCaps="false"
+            android:textSize="24sp"
+            android:layout_gravity="start"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+
+            />
+
+    </LinearLayout>
+
 
 
     <LinearLayout
         android:id="@+id/image_layout"
         android:layout_width="wrap_content"
-        android:layout_height="115dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="15dp"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_weight="4">
+        android:gravity="start"
+        android:layout_weight="3">
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="115dp">
+            android:layout_height="180dp">
             <SeekBar
                 android:id="@+id/eq_1"
-                android:layout_width="115dp"
+                android:layout_width="180dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -74,10 +87,10 @@
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="115dp">
+            android:layout_height="180dp">
             <SeekBar
                 android:id="@+id/eq_2"
-                android:layout_width="115dp"
+                android:layout_width="180dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -86,10 +99,10 @@
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="115dp">
+            android:layout_height="180dp">
             <SeekBar
                 android:id="@+id/eq_3"
-                android:layout_width="115dp"
+                android:layout_width="180dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -98,10 +111,10 @@
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="115dp">
+            android:layout_height="180dp">
             <SeekBar
                 android:id="@+id/eq_4"
-                android:layout_width="115dp"
+                android:layout_width="180dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -110,17 +123,26 @@
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="115dp">
+            android:layout_height="180dp">
             <SeekBar
                 android:id="@+id/eq_5"
-                android:layout_width="115dp"
+                android:layout_width="180dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
                 android:rotation="270" />
         </FrameLayout>
 
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="180dp"
+            android:drawableLeft="@android:drawable/ic_menu_revert"
+            android:id="@+id/btn_reset"
+            android:background="@android:color/transparent"
+            android:onClick="btn_reset_clicked"
+            android:padding="20dp"
 
+             />
 
 
     </LinearLayout>
