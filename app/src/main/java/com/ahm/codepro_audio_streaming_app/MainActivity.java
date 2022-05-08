@@ -211,6 +211,9 @@ public class MainActivity extends AppCompatActivity {
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         index = prefs.getInt("index", 0);
         if (stationsNames.size() > 0) {
+            if(index == stationsNames.size()){
+                index--;
+            }
             stationView.setText(stationsNames.get(index));
         }
 
