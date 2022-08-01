@@ -32,20 +32,27 @@ public class IcyStreamMeta
     public String getArtist() throws IOException {
         data = getMetadata();
 
-        if (!data.containsKey("StreamTitle"))
+        if(data != null){
+
+            if (!data.containsKey("StreamTitle"))
+                return "";
+
+            String streamTitle = data.get("StreamTitle");
+            //String title = streamTitle.substring(0, streamTitle.indexOf("-"));
+            String title;
+            if(streamTitle.contains("-")){
+                title = streamTitle.length() > 0 ? streamTitle.substring(0, streamTitle.indexOf("-")) : " ";
+            }
+            else{
+                title = streamTitle;
+            }
+
+            return title.trim();
+        }
+        else {
             return "";
-
-        String streamTitle = data.get("StreamTitle");
-        //String title = streamTitle.substring(0, streamTitle.indexOf("-"));
-        String title;
-        if(streamTitle.contains("-")){
-            title = streamTitle.length() > 0 ? streamTitle.substring(0, streamTitle.indexOf("-")) : " ";
-        }
-        else{
-            title = streamTitle;
         }
 
-        return title.trim();
     }
 
     /**
@@ -72,20 +79,26 @@ public class IcyStreamMeta
      */
     public String getTitle() throws IOException {
         data = getMetadata();
+        if(data != null){
+            if (!data.containsKey("StreamTitle"))
+                return "";
 
-        if (!data.containsKey("StreamTitle"))
+            String streamTitle = data.get("StreamTitle");
+            //String artist = streamTitle.substring(streamTitle.indexOf("-")+1);
+            String artist;
+            if(streamTitle.contains("-")){
+                artist = streamTitle.length() > 0 ? streamTitle.substring(streamTitle.indexOf("-")+1) : " ";
+            }
+            else{
+                artist = "";
+            }
+            return artist.trim();
+        }
+        else {
             return "";
+        }
 
-        String streamTitle = data.get("StreamTitle");
-        //String artist = streamTitle.substring(streamTitle.indexOf("-")+1);
-        String artist;
-        if(streamTitle.contains("-")){
-            artist = streamTitle.length() > 0 ? streamTitle.substring(streamTitle.indexOf("-")+1) : " ";
-        }
-        else{
-            artist = "";
-        }
-        return artist.trim();
+
     }
 
     public Map<String, String> getMetadata() throws IOException {
@@ -119,7 +132,7 @@ public class IcyStreamMeta
             // Headers are sent within a stream
             StringBuilder strHeaders = new StringBuilder();
             char c;
-            while ((c = (char)stream.read()) != -1)
+            while ((c = (char)stream.read()) != -1 && strHeaders.length() < 50)
             {
                 strHeaders.append(c);
                 if (strHeaders.length() > 5 && (strHeaders.substring((strHeaders.length() - 4), strHeaders.length()).equals("\r\n\r\n"))) {
