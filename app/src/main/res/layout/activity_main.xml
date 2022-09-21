@@ -22,7 +22,7 @@
         android:layout_gravity="start"
         android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="2dp"
         android:layout_marginRight="2dp"
         android:fontFamily="sans-serif-light"
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-light"
         android:onClick="radio_info_btn_clicked"
         android:text="Radio Info"
@@ -51,6 +51,7 @@
         android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/station" />
 
@@ -58,9 +59,9 @@
         android:id="@+id/image_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="65dp"
-        android:layout_marginLeft="65dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="66dp"
         android:layout_marginRight="66dp"
         android:gravity="start"
@@ -72,11 +73,11 @@
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="180dp">
+            android:layout_height="120dp">
 
             <SeekBar
                 android:id="@+id/eq_1"
-                android:layout_width="180dp"
+                android:layout_width="120dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -85,11 +86,11 @@
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="180dp">
+            android:layout_height="120dp">
 
             <SeekBar
                 android:id="@+id/eq_2"
-                android:layout_width="180dp"
+                android:layout_width="120dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -98,11 +99,11 @@
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="180dp">
+            android:layout_height="120dp">
 
             <SeekBar
                 android:id="@+id/eq_3"
-                android:layout_width="180dp"
+                android:layout_width="120dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -111,11 +112,11 @@
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="180dp">
+            android:layout_height="120dp">
 
             <SeekBar
                 android:id="@+id/eq_4"
-                android:layout_width="180dp"
+                android:layout_width="120dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -124,11 +125,11 @@
 
         <FrameLayout
             android:layout_width="46dp"
-            android:layout_height="180dp">
+            android:layout_height="120dp">
 
             <SeekBar
                 android:id="@+id/eq_5"
-                android:layout_width="180dp"
+                android:layout_width="120dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:progress="50"
@@ -138,7 +139,7 @@
         <Button
             android:id="@+id/btn_reset"
             android:layout_width="50dp"
-            android:layout_height="180dp"
+            android:layout_height="120dp"
             android:background="@android:color/transparent"
             android:drawableLeft="@android:drawable/ic_menu_revert"
             android:onClick="btn_reset_clicked"
@@ -148,12 +149,17 @@
 
     <LinearLayout
         android:id="@+id/seekbarLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_width="290dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.537"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_radio_info">
 
@@ -176,7 +182,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -218,7 +224,9 @@
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.039" />
 
 </android.support.constraint.ConstraintLayout>
