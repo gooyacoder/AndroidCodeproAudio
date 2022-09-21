@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView stationView;;
     private LinearLayout seekbarLayout;
     private Timer timer;
+    private String songTitle, songArtist;
 
 
     @Override
@@ -480,16 +481,14 @@ public class MainActivity extends AppCompatActivity {
                     icy.setStreamUrl(new URL(stations.get(index)));
                     if (!icy.isError()) {
                         final String title = icy.getTitle();
-                        final TextView song_title = findViewById(R.id.song_title);
                         final String artist = icy.getArtist();
-                        final TextView song_artist = findViewById(R.id.song_artist);
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 if (artist != null) {
-                                    song_artist.setText(artist);
+                                    songArtist = artist;
                                 }
                                 if (title != null) {
-                                    song_title.setText(title);
+                                    songTitle = title;
                                 }
                             }
                         });
@@ -509,5 +508,12 @@ public class MainActivity extends AppCompatActivity {
         eq_3.setProgress(50);
         eq_4.setProgress(50);
         eq_5.setProgress(50);
+    }
+
+    public void radio_info_btn_clicked(View view) {
+        Intent intent = new Intent(this, RadioInfoActivity.class);
+        intent.putExtra("songTitle", songTitle);
+        intent.putExtra("songArtist", songArtist);
+        startActivity(intent);
     }
 }
