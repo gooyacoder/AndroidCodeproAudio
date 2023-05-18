@@ -1,13 +1,19 @@
 package com.ahm.codepro_audio_streaming_app;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.media.audiofx.Equalizer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -21,10 +27,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btn;
     private Button stations_btn;
     private boolean isPlaying;
+    private boolean isRecording;
     private MediaPlayer mediaPlayer;
     private ArrayList<String> stations;
     private ArrayList<String> stationsNames;
@@ -46,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout seekbarLayout;
     private Timer timer;
     private String songTitle, songArtist;
+    private int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+
+    private MediaRecorder recorder;
+
+    private static final int REQUEST_CODE_PERMISSIONS = 2;
+
+    private String[] REQUIRED_PERMISSIONS = {
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
 
     @Override
@@ -83,12 +104,106 @@ public class MainActivity extends AppCompatActivity {
         eq_4 = findViewById(R.id.eq_4);
         eq_5 = findViewById(R.id.eq_5);
 
+        recorder = new MediaRecorder();
+        isRecording = false;
+
+        if (allPermissionsGranted()) {
+            // Permissions granted, proceed with the app
+            // startApp();
+        } else {
+            // Request permissions
+            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
+        }
+
         SetupPlayButton();
         SetupEqualizerSeekbars();
         RestoreEqualizerSeekbars();
         SetupStationsButton();
+        CreateRecordingsFolder();
     }
 
+    private boolean allPermissionsGranted() {
+        for (String permission : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void CreateRecordingsFolder() {
+        File folder = new File("/sdcard/AudioRecordings");
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+    }
+
+    private void GetPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 0);
+
+        } else {
+
+            // startRecording();
+
+        }
+
+        // Check if permission is already granted
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not yet granted, request it
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+        } else {
+            // Permission is already granted, proceed with writing to external storage
+            // writeToFileOnExternalStorage();
+        }
+
+    }
+
+    private void Record() throws IOException {
+
+        if(!isRecording){
+            recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+            recorder.setAudioEncodingBitRate(128000);
+            recorder.setAudioSamplingRate(44100);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH_mm");
+            String currentTime = dateFormat.format(new Date());
+            recorder.setOutputFile("/sdcard/AudioRecordings/" + stationsNames.get(index) + "_" + currentTime + ".mp3");
+            recorder.prepare();
+            recorder.start();
+            Button btn = findViewById(R.id.recordBtn);
+            btn.setText("Stop Rec");
+            isRecording = true;
+        }
+        else{
+            recorder.stop();
+            Button btn = findViewById(R.id.recordBtn);
+            btn.setText("Record");
+            isRecording = false;
+        }
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
+                // Permissions granted, proceed with the app
+                // startApp();
+            } else {
+                // Permissions denied
+                // Toast.makeText(this, "Permissions not granted", Toast.LENGTH_SHORT).show();
+                // finish();
+            }
+        }
+    }
     private void RestoreEqualizerSeekbars() {
         SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int mProgress = mSharedPrefs.getInt("band_0", 50);
@@ -515,5 +630,9 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("songTitle", songTitle);
         intent.putExtra("songArtist", songArtist);
         startActivity(intent);
+    }
+
+    public void btn_record_clicked(View view) throws IOException {
+        Record();
     }
 }

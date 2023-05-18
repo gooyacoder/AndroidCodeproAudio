@@ -198,7 +198,7 @@
             android:text="Choose Stations"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/audioStreamBtn"
@@ -209,7 +209,19 @@
             android:text="Play"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/recordBtn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="Record"
+            android:textAllCaps="false"
+            android:onClick="btn_record_clicked"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
