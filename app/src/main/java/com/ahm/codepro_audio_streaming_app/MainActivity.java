@@ -11,7 +11,6 @@ import android.media.MediaRecorder;
 import android.media.audiofx.Equalizer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +39,9 @@ import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    static final int add = R.id.add;
+    static final int remove = R.id.remove;
 
     private Button btn;
     private Button stations_btn;
@@ -192,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
                 // Permissions granted, proceed with the app
@@ -264,18 +266,31 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
+
+        /* Handle item selection
         switch (item.getItemId()) {
 
-            case R.id.add:
+            case add:
                 showAddActivity();
                 return true;
 
-            case R.id.remove:
+            case remove:
                 this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        } */
+
+        if(item.getItemId() == add){
+            showAddActivity();
+            return true;
+        }
+        else if(item.getItemId() == remove){
+            this.finish();
+            return true;
+        }
+        else{
+            return super.onOptionsItemSelected(item);
         }
     }
 
