@@ -114,6 +114,7 @@ public class Station_Database_Handler extends SQLiteOpenHelper {
         addStation("http://rs11.stream24.org:8700", "SMC - Radio Austria");
         addStation("http://stream.srg-ssr.ch/m/rsc_de/mp3_128", "Radio Swiss Classic");
         addStation("http://174.36.206.197:8000", "Venice Classic Radio Italia");
+        addStation("http://stream.syntheticfm.com:8030/stream", "Synthetic FM");
     }
 }
 
