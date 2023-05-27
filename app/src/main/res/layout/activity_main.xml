@@ -1,244 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     android:gravity="center"
-    android:orientation="vertical"
-    tools:context="com.ahm.codepro_audio_streaming_app.MainActivity">
-
-
-    <TextView
-        android:id="@+id/station"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="start"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginRight="2dp"
-        android:fontFamily="sans-serif-light"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text=""
-        android:textAllCaps="false"
-        android:textColor="@android:color/black"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_radio_info"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-light"
-        android:onClick="radio_info_btn_clicked"
-        android:text="Radio Info"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/station" />
+    android:background="@color/bg">
 
     <LinearLayout
-        android:id="@+id/image_layout"
+        android:id="@+id/activity_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginRight="66dp"
-        android:gravity="start"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekbarLayout">
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="46dp"
-            android:layout_height="120dp">
-
-            <SeekBar
-                android:id="@+id/eq_1"
-                android:layout_width="120dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:progress="50"
-                android:rotation="270" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="46dp"
-            android:layout_height="120dp">
-
-            <SeekBar
-                android:id="@+id/eq_2"
-                android:layout_width="120dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:progress="50"
-                android:rotation="270" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="46dp"
-            android:layout_height="120dp">
-
-            <SeekBar
-                android:id="@+id/eq_3"
-                android:layout_width="120dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:progress="50"
-                android:rotation="270" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="46dp"
-            android:layout_height="120dp">
-
-            <SeekBar
-                android:id="@+id/eq_4"
-                android:layout_width="120dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:progress="50"
-                android:rotation="270" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="46dp"
-            android:layout_height="120dp">
-
-            <SeekBar
-                android:id="@+id/eq_5"
-                android:layout_width="120dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:progress="50"
-                android:rotation="270" />
-        </FrameLayout>
-
-        <Button
-            android:id="@+id/btn_reset"
-            android:layout_width="50dp"
-            android:layout_height="120dp"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@android:drawable/ic_menu_revert"
-            android:onClick="btn_reset_clicked"
-            android:padding="20dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/seekbarLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_radio_info">
-
-
-        <SeekBar
-            android:id="@+id/volume_seekbar"
-            android:layout_width="411dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginRight="0dp"
-            android:max="100"
-            android:progress="50"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_layout">
-
-        <Button
-            android:id="@+id/stationsBtn"
-            style="@style/Widget.AppCompat.Button.Colored"
+        <TextView
+            android:id="@+id/station"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:text="Choose Stations"
+            android:padding="15dp"
+            android:layout_gravity="center_horizontal"
+            android:text=""
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="15sp" />
+            android:textColor="@android:color/black"
+            android:textSize="26sp" />
 
         <Button
-            android:id="@+id/audioStreamBtn"
+            android:id="@+id/btn_radio_info"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:fontFamily="sans-serif-light"
-            android:text="Play"
+            android:onClick="radio_info_btn_clicked"
+            android:text="Radio Info"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/recordBtn"
-            style="@style/Widget.AppCompat.Button.Colored"
+        <LinearLayout
+            android:id="@+id/image_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:text="Record"
-            android:textAllCaps="false"
-            android:onClick="btn_record_clicked"
-            android:textColor="@android:color/white"
-            android:textSize="15sp" />
+            android:padding="15dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <FrameLayout
+                android:layout_width="46dp"
+                android:layout_height="120dp">
+
+                <SeekBar
+                    android:id="@+id/eq_1"
+                    android:layout_width="120dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:progress="50"
+                    android:rotation="270" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="46dp"
+                android:layout_height="120dp">
+
+                <SeekBar
+                    android:id="@+id/eq_2"
+                    android:layout_width="120dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:progress="50"
+                    android:rotation="270" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="46dp"
+                android:layout_height="120dp">
+
+                <SeekBar
+                    android:id="@+id/eq_3"
+                    android:layout_width="120dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:progress="50"
+                    android:rotation="270" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="46dp"
+                android:layout_height="120dp">
+
+                <SeekBar
+                    android:id="@+id/eq_4"
+                    android:layout_width="120dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:progress="50"
+                    android:rotation="270" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="46dp"
+                android:layout_height="120dp">
+
+                <SeekBar
+                    android:id="@+id/eq_5"
+                    android:layout_width="120dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:progress="50"
+                    android:rotation="270" />
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/btn_reset"
+                android:layout_width="50dp"
+                android:layout_height="120dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@android:drawable/ic_menu_revert"
+                android:onClick="btn_reset_clicked"
+                android:padding="20dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/seekbarLayout"
+            android:layout_width="320dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+
+            <SeekBar
+                android:id="@+id/volume_seekbar"
+                android:layout_width="300dp"
+                android:layout_height="38dp"
+                android:max="100"
+                android:progress="50" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/stationsBtn"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="Choose Stations"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/audioStreamBtn"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="Play"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/recordBtn"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:onClick="btn_record_clicked"
+                android:text="Record"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/count_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/count_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:text=""
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.039" />
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
