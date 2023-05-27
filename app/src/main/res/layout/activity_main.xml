@@ -128,12 +128,13 @@
             android:layout_height="60dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="15dp">
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
 
 
             <SeekBar
                 android:id="@+id/volume_seekbar"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:max="100"
                 android:progress="50" />
