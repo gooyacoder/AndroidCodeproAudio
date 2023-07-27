@@ -1,19 +1,19 @@
 package com.ahm.codepro_audio_streaming_app;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
+// import android.media.MediaPlayer;
+import org.videolan.libvlc.MediaPlayer;
 import android.media.MediaRecorder;
 import android.media.audiofx.Equalizer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -33,7 +32,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -193,19 +191,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (allPermissionsGranted()) {
-                // Permissions granted, proceed with the app
-                // startApp();
-            } else {
-                // Permissions denied
-                // Toast.makeText(this, "Permissions not granted", Toast.LENGTH_SHORT).show();
-                // finish();
-            }
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+//            if (allPermissionsGranted()) {
+//                // Permissions granted, proceed with the app
+//                // startApp();
+//            } else {
+//                // Permissions denied
+//                // Toast.makeText(this, "Permissions not granted", Toast.LENGTH_SHORT).show();
+//                // finish();
+//            }
+//        }
+//    }
     private void RestoreEqualizerSeekbars() {
         SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int mProgress = mSharedPrefs.getInt("band_0", 50);
@@ -225,8 +223,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (mediaPlayer != null) {
-                    mediaPlayer.setVolume((float) i / 100.0f,
-                            (float) i / 100.0f);
+//                    mediaPlayer.setVolume((float) i / 100.0f,
+//                            (float) i / 100.0f);
                 }
             }
 
@@ -518,11 +516,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (stations.size() > 0) {
                     if (!isPlaying) {
-                        mediaPlayer = new MediaPlayer();
-                        mediaPlayer.setVolume(0.5f, 0.5f);
+                       // mediaPlayer = new MediaPlayer();
+                       // mediaPlayer.setVolume(0.5f, 0.5f);
                         volumeSeekbar.setProgress(50);
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        equalizer = new Equalizer(1, mediaPlayer.getAudioSessionId());
+                        //mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        //equalizer = new Equalizer(1, mediaPlayer.getAudioSessionId());
                         equalizer.setEnabled(true);
                         InitializeEqualizer();
                         btn.setText("Stop");
@@ -531,21 +529,21 @@ public class MainActivity extends AppCompatActivity {
                                         .getDefaultSharedPreferences(getApplicationContext());
                         index = prefs.getInt("index", 0);
 
-                        try {
-
-
-                            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                                @Override
-                                public void onPrepared(final MediaPlayer mp) {
-                                    mp.start();
-                                }
-                            });
-                            mediaPlayer.setDataSource(stations.get(index));
-                            mediaPlayer.prepareAsync();
-                        } catch (IOException e) {
-                            Toast.makeText(getApplicationContext(), e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                        }
+//                        try {
+//
+//
+//                            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//                                @Override
+//                                public void onPrepared(final MediaPlayer mp) {
+//                                    mp.start();
+//                                }
+//                            });
+//                            mediaPlayer.setDataSource(stations.get(index));
+//                            mediaPlayer.prepareAsync();
+//                        } catch (IOException e) {
+//                            Toast.makeText(getApplicationContext(), e.getMessage(),
+//                                    Toast.LENGTH_LONG).show();
+//                        }
                         getMeta();
                         isPlaying = true;
 

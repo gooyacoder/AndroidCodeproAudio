@@ -1,12 +1,11 @@
 package com.ahm.codepro_audio_streaming_app;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
-import android.media.audiofx.Equalizer;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
