@@ -1,20 +1,14 @@
 package com.ahm.codepro_audio_streaming_app;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.media.AudioManager;
-// import android.media.MediaPlayer;
 import org.videolan.libvlc.LibVLC;
 import org.videolan.libvlc.Media;
 import org.videolan.libvlc.MediaPlayer;
-import org.videolan.libvlc.interfaces.ILibVLC;
-import org.videolan.libvlc.interfaces.IMedia;
-
+import org.videolan.libvlc.MediaPlayer.Equalizer;
 import android.media.MediaRecorder;
-import android.media.audiofx.Equalizer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -84,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         btn = findViewById(R.id.audioStreamBtn);
         stations_btn = findViewById(R.id.stationsBtn);
         isPlaying = false;
-        equalizer = new Equalizer(1, 1);
         stationView = findViewById(R.id.station);
         volumeSeekbar = findViewById(R.id.volume_seekbar);
         SetupVolumeSeekbar();
@@ -121,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             // Request permissions
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
+
 
         SetupPlayButton();
         SetupEqualizerSeekbars();
@@ -197,20 +191,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-//            if (allPermissionsGranted()) {
-//                // Permissions granted, proceed with the app
-//                // startApp();
-//            } else {
-//                // Permissions denied
-//                // Toast.makeText(this, "Permissions not granted", Toast.LENGTH_SHORT).show();
-//                // finish();
-//            }
-//        }
-//    }
     private void RestoreEqualizerSeekbars() {
         SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int mProgress = mSharedPrefs.getInt("band_0", 50);
@@ -230,8 +210,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (mediaPlayer != null) {
-//                    mediaPlayer.setVolume((float) i / 100.0f,
-//                            (float) i / 100.0f);
+                    mediaPlayer.setVolume(i);
                 }
             }
 
@@ -271,20 +250,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        /* Handle item selection
-        switch (item.getItemId()) {
-
-            case add:
-                showAddActivity();
-                return true;
-
-            case remove:
-                this.finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        } */
 
         if(item.getItemId() == add){
             showAddActivity();
@@ -364,10 +329,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (equalizer != null) {
-                    short band = 0;
-                    short value = (short) (-1500 + (i * 30));
+                    int band = 0;
+                    float value = (float) (-20 + (i * 0.4));
                     try{
-                        equalizer.setBandLevel(band, value);
+                        equalizer.setAmp(band, value);
+                        mediaPlayer.setEqualizer(equalizer);
                         int mProgress = i;
                         SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         SharedPreferences.Editor mEditor = mSharedPrefs.edit();
@@ -396,10 +362,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (equalizer != null) {
-                    short band = 1;
-                    short value = (short) (-1500 + (i * 30));
+                    int band = 2;
+                    float value = (float) (-20 + (i * 0.4));
                     try{
-                        equalizer.setBandLevel(band, value);
+                        equalizer.setAmp(band, value);
+                        mediaPlayer.setEqualizer(equalizer);
                         int mProgress = i;
                         SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         SharedPreferences.Editor mEditor = mSharedPrefs.edit();
@@ -427,10 +394,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (equalizer != null) {
-                    short band = 2;
-                    short value = (short) (-1500 + (i * 30));
+                    int band = 4;
+                    float value = (float) (-20 + (i * 0.4));
                     try{
-                        equalizer.setBandLevel(band, value);
+                        equalizer.setAmp(band, value);
+                        mediaPlayer.setEqualizer(equalizer);
                         int mProgress = i;
                         SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         SharedPreferences.Editor mEditor = mSharedPrefs.edit();
@@ -458,10 +426,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (equalizer != null) {
-                    short band = 3;
-                    short value = (short) (-1500 + (i * 30));
+                    int band = 6;
+                    float value = (float) (-20 + (i * 0.4));
                     try{
-                        equalizer.setBandLevel(band, value);
+                        equalizer.setAmp(band, value);
+                        mediaPlayer.setEqualizer(equalizer);
                         int mProgress = i;
                         SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         SharedPreferences.Editor mEditor = mSharedPrefs.edit();
@@ -489,10 +458,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (equalizer != null) {
-                    short band = 4;
-                    short value = (short) (-1500 + (i * 30));
+                    int band = 8;
+                    float value = (float) (-20 + (i * 0.4));
                     try{
-                        equalizer.setBandLevel(band, value);
+                        equalizer.setAmp(band, value);
+                        mediaPlayer.setEqualizer(equalizer);
                         int mProgress = i;
                         SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         SharedPreferences.Editor mEditor = mSharedPrefs.edit();
@@ -527,34 +497,17 @@ public class MainActivity extends AppCompatActivity {
                         mediaPlayer = new MediaPlayer(libVLC);
                         Media media = new Media(libVLC, Uri.parse(stations.get(index)));
                         mediaPlayer.setMedia(media);
+                        equalizer = MediaPlayer.Equalizer.create();
+                        mediaPlayer.setEqualizer(equalizer);
                         mediaPlayer.play();
-                        //mediaPlayer.setVolume(0.5f, 0.5f);
+                        mediaPlayer.setVolume(50);
                         volumeSeekbar.setProgress(50);
-                        //mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        //equalizer = new Equalizer(1, mediaPlayer.getAudioSessionId());
-                        equalizer.setEnabled(true);
                         InitializeEqualizer();
                         btn.setText("Stop");
                         SharedPreferences prefs =
                                 PreferenceManager
                                         .getDefaultSharedPreferences(getApplicationContext());
                         index = prefs.getInt("index", 0);
-
-//                        try {
-//
-//
-//                            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//                                @Override
-//                                public void onPrepared(final MediaPlayer mp) {
-//                                    mp.start();
-//                                }
-//                            });
-//                            mediaPlayer.setDataSource(stations.get(index));
-//                            mediaPlayer.prepareAsync();
-//                        } catch (IOException e) {
-//                            Toast.makeText(getApplicationContext(), e.getMessage(),
-//                                    Toast.LENGTH_LONG).show();
-//                        }
                         getMeta();
                         isPlaying = true;
 
@@ -565,7 +518,6 @@ public class MainActivity extends AppCompatActivity {
                             mediaPlayer.stop();
                             mediaPlayer.release();
                             mediaPlayer = null;
-                            equalizer.release();
                             equalizer = null;
                             timer.cancel();
                             timer = null;
@@ -585,28 +537,30 @@ public class MainActivity extends AppCompatActivity {
         if (equalizer != null) {
             short band = 0;
             num_1 = eq_1.getProgress();
-            short value = (short) (-1500 + (num_1 * 30));
-            equalizer.setBandLevel(band, value);
-
-            band = 1;
-            num_2 = eq_2.getProgress();
-            value = (short) (-1500 + (num_2 * 30));
-            equalizer.setBandLevel(band, value);
+            float value = (float) (-20 + (num_1 * 0.4));
+            equalizer.setAmp(band, value);
 
             band = 2;
-            num_3 = eq_3.getProgress();
-            value = (short) (-1500 + (num_3 * 30));
-            equalizer.setBandLevel(band, value);
-
-            band = 3;
-            num_4 = eq_4.getProgress();
-            value = (short) (-1500 + (num_3 * 30));
-            equalizer.setBandLevel(band, value);
+            num_2 = eq_2.getProgress();
+            value = (float) (-20 + (num_1 * 0.4));
+            equalizer.setAmp(band, value);
 
             band = 4;
+            num_3 = eq_3.getProgress();
+            value = (float) (-20 + (num_1 * 0.4));
+            equalizer.setAmp(band, value);
+
+            band = 6;
+            num_4 = eq_4.getProgress();
+            value = (float) (-20 + (num_1 * 0.4));
+            equalizer.setAmp(band, value);
+
+            band = 8;
             num_5 = eq_5.getProgress();
-            value = (short) (-1500 + (num_4 * 30));
-            equalizer.setBandLevel(band, value);
+            value = (float) (-20 + (num_1 * 0.4));
+            equalizer.setAmp(band, value);
+            mediaPlayer.setEqualizer(equalizer);
+
 
         }
     }
