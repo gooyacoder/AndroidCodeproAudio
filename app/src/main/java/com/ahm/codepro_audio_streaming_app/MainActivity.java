@@ -1,14 +1,21 @@
 package com.ahm.codepro_audio_streaming_app;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 // import android.media.MediaPlayer;
+import org.videolan.libvlc.LibVLC;
+import org.videolan.libvlc.Media;
 import org.videolan.libvlc.MediaPlayer;
+import org.videolan.libvlc.interfaces.ILibVLC;
+import org.videolan.libvlc.interfaces.IMedia;
+
 import android.media.MediaRecorder;
 import android.media.audiofx.Equalizer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import androidx.core.app.ActivityCompat;
@@ -516,8 +523,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (stations.size() > 0) {
                     if (!isPlaying) {
-                       // mediaPlayer = new MediaPlayer();
-                       // mediaPlayer.setVolume(0.5f, 0.5f);
+                        LibVLC libVLC = new LibVLC(getApplicationContext());
+                        mediaPlayer = new MediaPlayer(libVLC);
+                        Media media = new Media(libVLC, Uri.parse(stations.get(index)));
+                        mediaPlayer.setMedia(media);
+                        mediaPlayer.play();
+                        //mediaPlayer.setVolume(0.5f, 0.5f);
                         volumeSeekbar.setProgress(50);
                         //mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                         //equalizer = new Equalizer(1, mediaPlayer.getAudioSessionId());
