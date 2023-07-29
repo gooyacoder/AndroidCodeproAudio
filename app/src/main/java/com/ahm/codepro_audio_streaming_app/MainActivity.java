@@ -8,9 +8,9 @@ import org.videolan.libvlc.LibVLC;
 import org.videolan.libvlc.Media;
 import org.videolan.libvlc.MediaPlayer;
 import org.videolan.libvlc.MediaPlayer.Equalizer;
-import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -59,8 +59,10 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer;
     private String songTitle, songArtist;
     private int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+    private String fileName;
 
-    private MediaRecorder recorder;
+    private LibVLC libVLC_rec;
+    private org.videolan.libvlc.MediaPlayer mediaPlayer_rec;
 
     private static final int REQUEST_CODE_PERMISSIONS = 2;
 
@@ -104,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         eq_4 = findViewById(R.id.eq_4);
         eq_5 = findViewById(R.id.eq_5);
 
-        recorder = new MediaRecorder();
         isRecording = false;
 
         if (allPermissionsGranted()) {
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         SetupEqualizerSeekbars();
         RestoreEqualizerSeekbars();
         SetupStationsButton();
-        CreateRecordingsFolder();
+        //CreateRecordingsFolder();
     }
 
     private boolean allPermissionsGranted() {
@@ -132,12 +133,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void CreateRecordingsFolder() {
-        File folder = new File("/sdcard/AudioRecordings");
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-    }
+//    private void CreateRecordingsFolder() {
+//        File folder = new File("/sdcard/AudioRecordings");
+//        if (!folder.exists()) {
+//            folder.mkdirs();
+//        }
+//    }
 
     private void GetPermission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
@@ -167,27 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void Record() throws IOException {
 
-        if(!isRecording){
-            recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
-            recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-            recorder.setAudioEncodingBitRate(128000);
-            recorder.setAudioSamplingRate(44100);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("HH_mm");
-            String currentTime = dateFormat.format(new Date());
-            recorder.setOutputFile("/sdcard/AudioRecordings/" + stationsNames.get(index) + "_" + currentTime + ".mp3");
-            recorder.prepare();
-            recorder.start();
-            Button btn = findViewById(R.id.recordBtn);
-            btn.setText("Stop Rec");
-            isRecording = true;
-        }
-        else{
-            recorder.stop();
-            Button btn = findViewById(R.id.recordBtn);
-            btn.setText("Record");
-            isRecording = false;
-        }
+
 
     }
 
@@ -611,6 +592,49 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btn_record_clicked(View view) throws IOException {
-        Record();
+//        if(mediaPlayer != null && mediaPlayer.isPlaying()){
+//            if(!isRecording){
+//                SimpleDateFormat dateFormat = new SimpleDateFormat("HH_mm");
+//                String currentTime = dateFormat.format(new Date());
+//                Button btn = findViewById(R.id.recordBtn);
+//                btn.setText("Stop Rec");
+//                isRecording = true;
+//                fileName = "/sdcard/" + stationsNames.get(index) + "_" + currentTime + ".mp3";
+//                mediaPlayer.record(fileName);
+//            }
+//            else{
+//                mediaPlayer.record(fileName);
+//                Button btn = findViewById(R.id.recordBtn);
+//                btn.setText("Record");
+//                isRecording = false;
+//            }
+//        }
+//        else{
+//            Toast.makeText(this, "First Play then Record", Toast.LENGTH_LONG).show();
+//        }
+
+        if(!isRecording){
+            libVLC_rec = new LibVLC(this);
+            mediaPlayer_rec = new MediaPlayer(libVLC_rec);
+            org.videolan.libvlc.Media media = new Media(libVLC_rec, Uri.parse(stations.get(index)));
+
+            File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+            String outputFilePath = outputDir.getAbsolutePath() + File.separator + "output.mp3";
+            String options = ":sout=#transcode{acodec=mp3,ab=128}:std{access=file,mux=raw,dst=" + outputFilePath + "}";
+            media.addOption(options);
+            mediaPlayer_rec.setMedia(media);
+            mediaPlayer_rec.play();
+            Button btn = findViewById(R.id.recordBtn);
+            btn.setText("Stop Rec");
+            isRecording = true;
+        }
+        else{
+            mediaPlayer_rec.stop();
+            Button btn = findViewById(R.id.recordBtn);
+            btn.setText("Record");
+            isRecording = false;
+        }
+
+
     }
 }
