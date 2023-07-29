@@ -617,9 +617,9 @@ public class MainActivity extends AppCompatActivity {
             libVLC_rec = new LibVLC(this);
             mediaPlayer_rec = new MediaPlayer(libVLC_rec);
             org.videolan.libvlc.Media media = new Media(libVLC_rec, Uri.parse(stations.get(index)));
-
+            createFileName();
             File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
-            String outputFilePath = outputDir.getAbsolutePath() + File.separator + "output.mp3";
+            String outputFilePath = outputDir.getAbsolutePath() + File.separator + fileName;
             String options = ":sout=#transcode{acodec=mp3,ab=128}:std{access=file,mux=raw,dst=" + outputFilePath + "}";
             media.addOption(options);
             mediaPlayer_rec.setMedia(media);
@@ -636,5 +636,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void createFileName(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd - HH:mm:ss");
+        String currentTime = dateFormat.format(new Date());
+        fileName = stationsNames.get(index) + " " + currentTime + ".mp3";
     }
 }
