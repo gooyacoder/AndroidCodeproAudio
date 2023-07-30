@@ -9,12 +9,15 @@ import org.videolan.libvlc.Media;
 import org.videolan.libvlc.MediaPlayer;
 import org.videolan.libvlc.MediaPlayer.Equalizer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +30,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -68,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String[] REQUIRED_PERMISSIONS = {
             Manifest.permission.RECORD_AUDIO,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
 
 
@@ -114,6 +118,18 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // Request permissions
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()) {
+                // Permission is granted, proceed with writing to external storage
+            } else {
+                // Permission is not granted, request for permission
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                Uri uri = Uri.fromParts("package", getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+            }
         }
 
 
@@ -592,31 +608,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btn_record_clicked(View view) throws IOException {
-//        if(mediaPlayer != null && mediaPlayer.isPlaying()){
-//            if(!isRecording){
-//                SimpleDateFormat dateFormat = new SimpleDateFormat("HH_mm");
-//                String currentTime = dateFormat.format(new Date());
-//                Button btn = findViewById(R.id.recordBtn);
-//                btn.setText("Stop Rec");
-//                isRecording = true;
-//                fileName = "/sdcard/" + stationsNames.get(index) + "_" + currentTime + ".mp3";
-//                mediaPlayer.record(fileName);
-//            }
-//            else{
-//                mediaPlayer.record(fileName);
-//                Button btn = findViewById(R.id.recordBtn);
-//                btn.setText("Record");
-//                isRecording = false;
-//            }
-//        }
-//        else{
-//            Toast.makeText(this, "First Play then Record", Toast.LENGTH_LONG).show();
-//        }
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+            if(!isRecording){
+                libVLC_rec = new LibVLC(this);
+                mediaPlayer_rec = new MediaPlayer(libVLC_rec);
+                Media media = new Media(libVLC_rec, Uri.parse(stations.get(index)));
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yy.MM.dd-HH.m.s");
+                String currentTime = dateFormat.format(new Date());
+                fileName = stationsNames.get(index) + " " + currentTime + ".mp3";
+                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), fileName);
+                String options = ":sout=#transcode{acodec=mp3,ab=128}:std{access=file,mux=raw,dst=" + file + "}";
+                media.addOption(options);
+                mediaPlayer_rec.setMedia(media);
+                mediaPlayer_rec.play();
+                Button btn = findViewById(R.id.recordBtn);
+                btn.setText("Stop Rec");
+                isRecording = true;
+            }
+            else{
+                mediaPlayer_rec.stop();
+                Button btn = findViewById(R.id.recordBtn);
+                btn.setText("Record");
+                isRecording = false;
+            }
 
+
+        }
+        else{
+            legacyCode();
+        }
+    }
+
+    private void legacyCode() {
         if(!isRecording){
             libVLC_rec = new LibVLC(this);
             mediaPlayer_rec = new MediaPlayer(libVLC_rec);
-            org.videolan.libvlc.Media media = new Media(libVLC_rec, Uri.parse(stations.get(index)));
+            Media media = new Media(libVLC_rec, Uri.parse(stations.get(index)));
             createFileName();
             File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
             String outputFilePath = outputDir.getAbsolutePath() + File.separator + fileName;
@@ -634,12 +661,10 @@ public class MainActivity extends AppCompatActivity {
             btn.setText("Record");
             isRecording = false;
         }
-
-
     }
 
     private void createFileName(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd - HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
         String currentTime = dateFormat.format(new Date());
         fileName = stationsNames.get(index) + " " + currentTime + ".mp3";
     }
