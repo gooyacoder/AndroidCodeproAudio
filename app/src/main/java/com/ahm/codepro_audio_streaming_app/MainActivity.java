@@ -664,7 +664,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createFileName(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd-HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yy.MM.dd-HH.m.s");
         String currentTime = dateFormat.format(new Date());
         fileName = stationsNames.get(index) + " " + currentTime + ".mp3";
     }
