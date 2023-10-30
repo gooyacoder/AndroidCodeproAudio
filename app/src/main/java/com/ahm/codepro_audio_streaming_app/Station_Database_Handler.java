@@ -113,8 +113,12 @@ public class Station_Database_Handler extends SQLiteOpenHelper {
         addStation("http://stream.srg-ssr.ch/m/rsp/mp3_128", "Radio Swiss Pop");
         addStation("http://rs11.stream24.org:8700", "SMC - Radio Austria");
         addStation("http://stream.srg-ssr.ch/m/rsc_de/mp3_128", "Radio Swiss Classic");
-        addStation("http://174.36.206.197:8000", "Venice Classic Radio Italia");
         addStation("http://stream.syntheticfm.com:8030/stream", "Synthetic FM");
+        addStation("http://live.leanstream.co/CFPLAM-MP3", "CFPL 980");
+        addStation("http://streaming.radionomy.com/MPRadio-Eure", "MPRadio");
+        addStation("http://ice.radio-reeperbahn.de:8000/stream2.mp3", "Radio Reeperbahn");
+        addStation("http://playerservices.streamtheworld.com/api/livestream-redirect/CLASSICFM.mp3", "Radio Classic FM");
+
     }
 }
 

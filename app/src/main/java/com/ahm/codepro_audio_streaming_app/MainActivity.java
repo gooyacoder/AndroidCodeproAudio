@@ -131,13 +131,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }
-
-
-        SetupPlayButton();
         SetupEqualizerSeekbars();
         RestoreEqualizerSeekbars();
+        SetupPlayButton();
         SetupStationsButton();
-        //CreateRecordingsFolder();
     }
 
     private boolean allPermissionsGranted() {
@@ -496,10 +493,10 @@ public class MainActivity extends AppCompatActivity {
                         mediaPlayer.setMedia(media);
                         equalizer = MediaPlayer.Equalizer.create();
                         mediaPlayer.setEqualizer(equalizer);
-                        mediaPlayer.play();
                         mediaPlayer.setVolume(50);
                         volumeSeekbar.setProgress(50);
                         InitializeEqualizer();
+                        mediaPlayer.play();
                         btn.setText("Stop");
                         SharedPreferences prefs =
                                 PreferenceManager
@@ -532,29 +529,29 @@ public class MainActivity extends AppCompatActivity {
 
     private void InitializeEqualizer() {
         if (equalizer != null) {
-            short band = 0;
+            int band = 0;
             num_1 = eq_1.getProgress();
             float value = (float) (-20 + (num_1 * 0.4));
             equalizer.setAmp(band, value);
 
             band = 2;
             num_2 = eq_2.getProgress();
-            value = (float) (-20 + (num_1 * 0.4));
+            value = (float) (-20 + (num_2 * 0.4));
             equalizer.setAmp(band, value);
 
             band = 4;
             num_3 = eq_3.getProgress();
-            value = (float) (-20 + (num_1 * 0.4));
+            value = (float) (-20 + (num_3 * 0.4));
             equalizer.setAmp(band, value);
 
             band = 6;
             num_4 = eq_4.getProgress();
-            value = (float) (-20 + (num_1 * 0.4));
+            value = (float) (-20 + (num_4 * 0.4));
             equalizer.setAmp(band, value);
 
             band = 8;
             num_5 = eq_5.getProgress();
-            value = (float) (-20 + (num_1 * 0.4));
+            value = (float) (-20 + (num_5 * 0.4));
             equalizer.setAmp(band, value);
             mediaPlayer.setEqualizer(equalizer);
 
