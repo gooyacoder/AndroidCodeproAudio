@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/activity_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical">
 
@@ -45,6 +45,18 @@
             android:padding="15dp"
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal">
+
+            <FrameLayout
+                android:layout_width="46dp"
+                android:layout_height="120dp">
+                <SeekBar
+                    android:id="@+id/preAmp"
+                    android:layout_width="120dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:progress="50"
+                    android:rotation="270" />
+            </FrameLayout>
 
             <FrameLayout
                 android:layout_width="46dp"
@@ -124,10 +136,11 @@
 
         <LinearLayout
             android:id="@+id/seekbarLayout"
-            android:layout_width="320dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center"
             android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
             android:paddingTop="15dp"
             android:paddingBottom="15dp">
 

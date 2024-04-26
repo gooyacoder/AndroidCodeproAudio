@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Radio 0.1.1.1.1</string>
+    <string name="app_name">Radio 1.0.0.0.0</string>
     <string name="select_station">Select Station</string>
     <string name="add_station">Add Station</string>
     <string name="remove_station">Remove Station</string>

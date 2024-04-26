@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private int index;
     private Equalizer equalizer;
     private SeekBar volumeSeekbar;
-    private SeekBar eq_1, eq_2, eq_3, eq_4, eq_5;
+    private SeekBar eq_1, eq_2, eq_3, eq_4, eq_5, preAmp;
     private int num_1, num_2, num_3, num_4, num_5;
     private TextView stationView;;
     private LinearLayout seekbarLayout;
@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                     .getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
             seekbarLayout.setLayoutParams(params);
         }
+        preAmp = findViewById(R.id.preAmp);
         eq_1 = findViewById(R.id.eq_1);
         eq_2 = findViewById(R.id.eq_2);
         eq_3 = findViewById(R.id.eq_3);
@@ -135,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
         RestoreEqualizerSeekbars();
         SetupPlayButton();
         SetupStationsButton();
+        SetupPreAmpSeekbar();
     }
 
     private boolean allPermissionsGranted() {
@@ -197,6 +199,29 @@ public class MainActivity extends AppCompatActivity {
         eq_4.setProgress(mProgress);
         mProgress = mSharedPrefs.getInt("band_4", 50);
         eq_5.setProgress(mProgress);
+    }
+
+    private void SetupPreAmpSeekbar() {
+        preAmp.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if (mediaPlayer != null) {
+                    float value = (float) (-20 + (i * 0.4));
+                    equalizer.setPreAmp(value);
+                    mediaPlayer.setEqualizer(equalizer);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     private void SetupVolumeSeekbar() {
@@ -327,6 +352,7 @@ public class MainActivity extends AppCompatActivity {
                     float value = (float) (-20 + (i * 0.4));
                     try{
                         equalizer.setAmp(band, value);
+                        equalizer.setAmp(1, value);
                         mediaPlayer.setEqualizer(equalizer);
                         int mProgress = i;
                         SharedPreferences mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -533,6 +559,7 @@ public class MainActivity extends AppCompatActivity {
             num_1 = eq_1.getProgress();
             float value = (float) (-20 + (num_1 * 0.4));
             equalizer.setAmp(band, value);
+            equalizer.setAmp(1, value);
 
             band = 2;
             num_2 = eq_2.getProgress();
@@ -595,6 +622,7 @@ public class MainActivity extends AppCompatActivity {
         eq_3.setProgress(50);
         eq_4.setProgress(50);
         eq_5.setProgress(50);
+        preAmp.setProgress(50);
     }
 
     public void radio_info_btn_clicked(View view) {
