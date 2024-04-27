@@ -523,6 +523,7 @@ public class MainActivity extends AppCompatActivity {
                         volumeSeekbar.setProgress(50);
                         InitializeEqualizer();
                         mediaPlayer.play();
+                        preAmp.setProgress(50);
                         btn.setText("Stop");
                         SharedPreferences prefs =
                                 PreferenceManager
